@@ -308,7 +308,11 @@ const StudentProf = () => {
   console.log("student", student, appliedData);
   const getStudentInfos = async () => {
     try {
-      const { data } = await axios.get(`/v2/particularappliedclg/get/${id}`);
+      const { data } = await axios.get(`/v2/particularappliedclg/get/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
       setStudent(data.appliedclgdata[0]);
     } catch (err) {
       console.log(err);
@@ -342,7 +346,7 @@ const StudentProf = () => {
 
   useEffect(() => {
     AppliedCollege();
-  }, [appliedData === undefined ? appliedData : ""]);
+  }, [appliedData === undefined ? appliedData : "", student]);
 
   useEffect(() => {
     Reviwes();

@@ -143,7 +143,11 @@ const Dashboard = () => {
 
   const ChartData = async () => {
     try {
-      const { data } = await axios.get("/dashboard/v2/get/counts/superadmin");
+      const { data } = await axios.get("/dashboard/v2/get/counts/superadmin", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
       setCountData(data);
     } catch (err) {
       console.log("err", err);
@@ -160,7 +164,7 @@ const Dashboard = () => {
         <div className="left-main">
           <div className="left-top">
             <div className="colleges">
-              <CollegesBlock countData={countData}/>
+              <CollegesBlock countData={countData} />
             </div>
             <div className="task-team-main">
               <div className="tasks">
@@ -175,7 +179,7 @@ const Dashboard = () => {
           <div className="left-bottom">
             <div className="left">
               <div className="admission">
-                <AdmissionBlock countData={countData}/>
+                <AdmissionBlock countData={countData} />
               </div>
               <div className="application-data">
                 <ApplicationData />
@@ -184,7 +188,7 @@ const Dashboard = () => {
 
             <div className="right">
               <div className="featured">
-                <FeaturedColleges countData={countData}/>
+                <FeaturedColleges countData={countData} />
               </div>
             </div>
           </div>

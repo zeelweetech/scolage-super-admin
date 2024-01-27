@@ -9,6 +9,7 @@ const Wrapper = styled.li`
       padding: 15px 20px;
       border-radius: 20px;
       position: relative;
+      margin-top: 5px;
 
       svg {
          width: 20px;

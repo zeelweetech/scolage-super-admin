@@ -151,7 +151,11 @@ const Applicants = () => {
   const getCount = async () => {
     try {
       setProgressBar(20);
-      const { data } = await axios.get("/v2/admissionlist/get");
+      const { data } = await axios.get("/v2/admissionlist/get", {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
       setProgressBar(80);
       setApplicantsCount(data.admission.length);
       setRecord(data.admission);

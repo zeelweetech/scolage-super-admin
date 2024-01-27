@@ -21,86 +21,87 @@ import CollegeImagesView from "./components/CollegeImagesView";
 import YoutubeView from "./components/YoutubeView";
 
 const CollegeProfile = () => {
-   const [collegeData, setCollegeData] = useState(null);
-   const navigate = useNavigate();
+  const [collegeData, setCollegeData] = useState(null);
+  const navigate = useNavigate();
 
-   let { id } = useParams();
+  let { id } = useParams();
 
-   const getCollegeDetails = async () => {
-      try {
-         const { data } = await axios.post(`http://localhost:7000/v2/singleclglist/get/${id}`, {
-            headers: {
-               "Content-Type": "application/json",
-            },
-         });
-         if (data.college.length === 0) {
-            toast.error("Invalid college ID");
-            navigate("/colleges");
-         }
-         setCollegeData(data);
-      } catch (err) {
-         console.log(err);
-         toast("Something went wrong, please try again");
+  const getCollegeDetails = async () => {
+    try {
+      const { data } = await axios.post(`/v2/singleclglist/get/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      if (data.college.length === 0) {
+        toast.error("Invalid college ID");
+        navigate("/colleges");
       }
-   };
+      setCollegeData(data);
+    } catch (err) {
+      console.log(err);
+      toast("Something went wrong, please try again");
+    }
+  };
 
-   useEffect(() => {
-      getCollegeDetails();
-   }, []);
+  useEffect(() => {
+    getCollegeDetails();
+  }, []);
 
-   return (
-      <Layout headerTitle={"College Profile"}>
-         <AddClgAccordion accTitle={"COLLEGE LOGIN IDS"}>
-            <ul>
+  return (
+    <Layout headerTitle={"College Profile"}>
+      <AddClgAccordion accTitle={"COLLEGE LOGIN IDS"}>
+        <ul>
+          <LoginId />
+          {/* <LoginId />
                <LoginId />
                <LoginId />
-               <LoginId />
-               <LoginId />
-               <LoginId />
-            </ul>
-         </AddClgAccordion>
-         <AddClgAccordion accTitle={"COLLEGE DETAILS"}>
-            <ClgDetailsBlock data={collegeData?.college[0]} />
-         </AddClgAccordion>
-         <AddClgAccordion accTitle={"INFRASTRUCTURE"}>
-            <InfrastructureBlock data={collegeData?.infra} />
-         </AddClgAccordion>
-         <AddClgAccordion accTitle={"HIGHLIGHTS"}>
-            <HighlightBlock data={collegeData?.highlight[0]} />
-         </AddClgAccordion>
-         <AddClgAccordion accTitle={"SPORTS"}>
-            <SportBlock data={collegeData?.sports} />
-         </AddClgAccordion>
-         <AddClgAccordion accTitle={"CULTURAL"}>
-            <SportBlock data={collegeData?.cultural} />
-         </AddClgAccordion>
-         <AddClgAccordion accTitle={"ACADEMICS"}>
-            <SportBlock data={collegeData?.acedemic} />
-         </AddClgAccordion>
+               <LoginId /> */}
+        </ul>
+      </AddClgAccordion>
+      <AddClgAccordion accTitle={"COLLEGE DETAILS"}>
+        <ClgDetailsBlock data={collegeData?.college[0]} />
+      </AddClgAccordion>
+      <AddClgAccordion accTitle={"INFRASTRUCTURE"}>
+        <InfrastructureBlock data={collegeData?.infra} />
+      </AddClgAccordion>
+      <AddClgAccordion accTitle={"HIGHLIGHTS"}>
+        <HighlightBlock data={collegeData?.highlight[0]} />
+      </AddClgAccordion>
+      <AddClgAccordion accTitle={"SPORTS"}>
+        <SportBlock data={collegeData?.sports} />
+      </AddClgAccordion>
+      <AddClgAccordion accTitle={"CULTURAL"}>
+        <SportBlock data={collegeData?.cultural} />
+      </AddClgAccordion>
+      <AddClgAccordion accTitle={"ACADEMICS"}>
+        <SportBlock data={collegeData?.acedemic} />
+      </AddClgAccordion>
 
-         <AddClgAccordion accTitle={"ALUMNI AND TOPPERS"}>
-            <ToppersInfoBlock data={collegeData?.alumini_and_toppers} />
-         </AddClgAccordion>
-         <AddClgAccordion accTitle={"MANAGEMENT & STAFF"}>
-            <StaffInfoBlock data={collegeData?.management_staff} />
-         </AddClgAccordion>
-         <AddClgAccordion accTitle={"SUBJECTS"}>
-            <SubjectSeats data={collegeData?.subject} />
-         </AddClgAccordion>
-         <AddClgAccordion accTitle={"ELIGIBILITY & TERMS"}>
-            <FeeStructureBlock data={collegeData?.feeStructure[0]} />
-         </AddClgAccordion>
-         <AddClgAccordion accTitle={"COLLEGE IMAGES"}>
-            <CollegeImagesView data={collegeData?.clgimage} />
-         </AddClgAccordion>
-         <AddClgAccordion accTitle={"YOUTUBE LINKS"}>
-            <YoutubeView data={collegeData?.videoUrl?.[0]} />
-         </AddClgAccordion>
-         <AddClgAccordion accTitle={"COLLEGE POLICY & SOCIAL MEDIA"}>
-            <PolicyBlock data={collegeData?.clgpolicySocialMedia[0]} />
-         </AddClgAccordion>
-      </Layout>
-   );
+      <AddClgAccordion accTitle={"ALUMNI AND TOPPERS"}>
+        <ToppersInfoBlock data={collegeData?.alumini_and_toppers} />
+      </AddClgAccordion>
+      <AddClgAccordion accTitle={"MANAGEMENT & STAFF"}>
+        <StaffInfoBlock data={collegeData?.management_staff} />
+      </AddClgAccordion>
+      <AddClgAccordion accTitle={"SUBJECTS"}>
+        <SubjectSeats data={collegeData?.subject} />
+      </AddClgAccordion>
+      <AddClgAccordion accTitle={"ELIGIBILITY & TERMS"}>
+        <FeeStructureBlock data={collegeData?.feeStructure[0]} />
+      </AddClgAccordion>
+      <AddClgAccordion accTitle={"COLLEGE IMAGES"}>
+        <CollegeImagesView data={collegeData?.clgimage} />
+      </AddClgAccordion>
+      <AddClgAccordion accTitle={"YOUTUBE LINKS"}>
+        <YoutubeView data={collegeData?.videoUrl?.[0]} />
+      </AddClgAccordion>
+      <AddClgAccordion accTitle={"COLLEGE POLICY & SOCIAL MEDIA"}>
+        <PolicyBlock data={collegeData?.clgpolicySocialMedia[0]} />
+      </AddClgAccordion>
+    </Layout>
+  );
 };
 
 export default CollegeProfile;
