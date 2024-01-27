@@ -7,7 +7,7 @@ const CheckStyles = styled.div`
    align-items: center;
    gap: 34px;
    /* padding-bottom: 46px; */
-   .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover{
+   .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
       background: transparent !important;
    }
    .p-checkbox {
@@ -66,15 +66,16 @@ const CheckStyles = styled.div`
       }
    }
 
-   @media (min-width: 768px) and (max-width: 1024px){
+   @media (min-width: 768px) and (max-width: 1024px) {
       gap: 20px;
       .p-checkbox-box {
-      width: 22px;
-      height: 22px;}
-      label{
+         width: 22px;
+         height: 22px;
+      }
+      label {
          gap: 16px;
          font-size: 18px;
-         svg{
+         svg {
             width: 30px;
          }
 
@@ -82,34 +83,36 @@ const CheckStyles = styled.div`
             font-size: 18px;
          }
       }
-
    }
 
-   @media (min-width: 1025px) and (max-width: 1280px){
+   @media (min-width: 1025px) and (max-width: 1280px) {
       gap: 26px;
-      label{
+      label {
          gap: 16px;
-         p{
+         p {
             font-size: 18px;
          }
       }
    }
 `;
 
-const InfraChecks = ({ data, infraChecks, setInfraChecks, name }) => {
+const InfraChecks = ({ data, infraChecks, setInfraChecks, name, disabled , formData ,handleCheckChange }) => {
    const onChecksChange = (e) => {
-      let _checkedItems = [...infraChecks];
+      console.log(e)
+      // let _checkedItems = [...infraChecks];
 
-      if (e.checked) _checkedItems.push(e.value);
-      else _checkedItems.splice(_checkedItems.indexOf(e.value), 1);
+      // if (e.checked) _checkedItems.push(e.value);
+      // else _checkedItems.splice(_checkedItems.indexOf(e.value), 1);
 
-      setInfraChecks(_checkedItems);
+      // setInfraChecks(_checkedItems);
    };
 
    return (
       <CheckStyles className="flex align-items-center">
-         <Checkbox inputId={name + data.id} name={name} value={data.label} onChange={onChecksChange} checked={infraChecks.includes(data.label)} />
-         <label htmlFor={name +data.id}>
+         <Checkbox inputId={name + data.id} name={name} value={data.key} onChange={e => {
+            handleCheckChange(data.key , e.checked)
+         }} checked={formData?.[data.key] == true} disabled={disabled} />
+         <label htmlFor={name + data.id}>
             <div className="icon">{data.icon}</div>
             <p>{data.label}</p>
          </label>

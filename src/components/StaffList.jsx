@@ -19,7 +19,7 @@ const Wrapper = styled.li`
 
       .faculty-in {
          border-left: 1px solid #60269e;
-         &.Fname {
+         &.Fname{
             border: none !important;
          }
       }
@@ -28,17 +28,14 @@ const Wrapper = styled.li`
          display: flex;
          align-items: center;
 
+       
+
          .Fdesignation {
-            width: 200px;
+            width: 148px;
          }
 
          .Fid {
-            width: 250px;
-             p{
-               overflow: hidden;
-               white-space: nowrap;
-               text-overflow: ellipsis;
-             }
+            width: 104px;
          }
       }
 
@@ -46,7 +43,6 @@ const Wrapper = styled.li`
          padding: 6px 15px;
          font-weight: 400;
          font-size: 14px;
-         text-align: center;
          line-height: 19px;
          color: #707070;
          text-transform: uppercase;
@@ -69,33 +65,33 @@ const Wrapper = styled.li`
    }
 
    @media (min-width: 768px) and (max-width: 1024px) {
-      .faculty-info {
+      .faculty-info{
          flex-direction: column;
 
-         .Finfo {
+         .Finfo{
             flex-direction: column;
          }
 
-         .faculty-in {
+          .faculty-in{
             border: none;
-         }
+          }
       }
    }
 
    @media (min-width: 1281px) and (max-width: 1820px) {
       flex-direction: column;
 
-      .faculty-info {
+      .faculty-info{
          flex-direction: column;
-         width: 100%;
+         width: 100%;   
 
-         .Finfo {
+         .Finfo{
             flex-direction: column;
          }
 
-         .faculty-in {
+          .faculty-in{
             border: none;
-         }
+          }
       }
    }
 `;
@@ -112,14 +108,14 @@ const StaffList = ({ faculty }) => {
                   <p>{faculty.designation} TEACHER</p>
                </div>
                <div className="faculty-in Fid">
-                  <p>ID: {faculty.staffid}</p>
+                  <p>ID {faculty.id}</p>
                </div>
             </div>
          </div>
 
          <div className="Fstatus">
             <div className="visibility-status">
-               <VisibilityStatus Fid={faculty.staffid} visi={faculty.isOpen} />
+               <VisibilityStatus Fid={faculty.id} visi={faculty.isOpen} />
             </div>
 
             <div className="edit-button">

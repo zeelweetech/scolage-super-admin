@@ -419,7 +419,7 @@ const CollegeTable = () => {
               />
             </svg>
           </button>
-          <button>
+          <button onClick={""}>
             <svg
               width="22"
               height="23"

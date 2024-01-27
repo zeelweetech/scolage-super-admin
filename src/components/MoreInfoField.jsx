@@ -28,12 +28,12 @@ const Wrapper = styled.div`
    }
 `;
 
-const MoreInfoField = ({ height, name }) => {
+const MoreInfoField = ({ height, name, value, handleChange }) => {
    return (
       <Wrapper>
          <label className="more-title">More Info...</label>
          <div className="textarea" style={{ height: height }}>
-            <textarea name={name} />
+            <textarea name={name} value={value} onChange={handleChange} />
          </div>
       </Wrapper>
    );

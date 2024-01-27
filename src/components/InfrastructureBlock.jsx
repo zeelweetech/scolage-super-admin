@@ -1,236 +1,165 @@
 import styled from "styled-components";
-import SmartClassIcon from "../Icons/SmartClassIcon";
-import LibraryIcon from "../Icons/LibraryIcon";
-import HostelIcon from "../Icons/HostelIcon";
-import MedicalIcon from "../Icons/MedicalIcon";
-import StaffroomIcon from "../Icons/StaffroomIcon";
-import ElevatorIcon from "../Icons/ElevatorIcon";
-import BusIcon from "../Icons/BusIcon";
-import FiresafetyIcon from "../Icons/FiresafetyIcon";
-import AuditoriumIcon from "../Icons/AuditoriumIcon";
-import PowerbackupIcon from "../Icons/PowerbackupIcon";
-import ParkingIcon from "../Icons/ParkingIcon";
-import EmExitIcon from "../Icons/EmExitIcon";
-import LabIcon from "../Icons/LabIcon";
-import CanteenIcon from "../Icons/CanteenIcon";
-import CCTVIcon from "../Icons/CCTVIcon";
-import PlaygroundIcon from "../Icons/PlaygroundIcon";
+import InfraChecks from "./InfraChecks";
+import MoreInfoField from "./MoreInfoField";
+import { useEffect, useState } from "react";
+import CheckData from "../../helper/InfraCheckData";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const Wrapper = styled.div`
-   .infra-items-main {
-      ul {
-         display: grid;
-         grid-template-columns: repeat(4, 1fr);
-         gap: 46px;
+  display: flex;
+  gap: 30px;
+  .infra-left {
+    flex: 2;
+    .infra-radios-main {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 46px 20px;
+    }
+  }
+  .infra-right {
+    flex: 1;
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    flex-direction: column;
+    .infra-left {
+      .infra-radios-main {
+        gap: 26px 10px;
       }
-   }
-
-   .more-info {
-      padding-top: 70px;
-      .title {
-         padding-bottom: 40px;
-         h4 {
-            font-weight: 700;
-            font-size: 20px;
-            line-height: 27px;
-            color: #60269e;
-         }
+    }
+  }
+  @media (min-width: 1025px) and (max-width: 1280px) {
+    /* flex-direction: column; */
+    .infra-left {
+      .infra-radios-main {
+        gap: 26px 10px;
       }
-
-      .info {
-         p {
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 21px;
-            color: #7a86a1;
-            padding-bottom: 70px;
-
-            &:last-child {
-               padding: 0px;
-            }
-         }
-      }
-   }
-
-   @media (min-width: 768px) and (max-width: 1024px) {
-      .infra-items-main {
-         ul {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-         }
-      }
-
-      .more-info {
-         padding-top: 50px;
-
-         .info {
-            p {
-               padding-bottom: 50px;
-            }
-         }
-      }
-   }
-
-   @media (min-width: 1025px) and (max-width: 1280px) {
-      .infra-items-main {
-         ul {
-            grid-template-columns: repeat(3, 1fr);
-         }
-      }
-      .more-info {
-         padding-top: 50px;
-
-         .info {
-            p {
-               padding-bottom: 50px;
-            }
-         }
-      }
-   }
+    }
+  }
 `;
-
-const InfraItemStyle = styled.li`
-   display: flex;
-   align-items: center;
-   gap: 28px;
-
-   .infra-title {
-      p {
-         font-weight: 400;
-         font-size: 20px;
-         line-height: 27px;
-         color: #000000;
-      }
-   }
-`;
-
-const InfraItem = ({ icon, title }) => {
-   return (
-      <InfraItemStyle>
-         <div className="icon">{icon}</div>
-         <div className="infra-title">{title}</div>
-      </InfraItemStyle>
-   );
-};
 
 const InfrastructureBlock = ({ data }) => {
+  // console.log(data)
+  const [infraChecks, setInfraChecks] = useState([]);
+  const [editable, setEditable] = useState(false);
+  const [formData, setFormData] = useState(data);
 
-   const tempArray = [];
-   for (var key in data?.[0]) {
-      if (data?.[0][key] === true) {
-         tempArray.push(key)
+  const setFetchedItems = () => {
+    var tempArr = [];
+    for (var key in data) {
+      if (data[key] == true) {
+        tempArr.push(key);
       }
-   }
-   const Infra = [
-      {
-         key: "smartclass",
-         icon: <SmartClassIcon />,
-         title: "Smart Class",
-      },
-      {
-         key: "library",
-         icon: <LibraryIcon />,
-         title: "Library",
-      },
-      {
-         key: "hostel",
-         icon: <HostelIcon />,
-         title: "Hostel",
-      },
-      {
-         key: "medicalsupport",
-         icon: <MedicalIcon />,
-         title: "Medical Support",
-      },
-      {
-         key: "staffroom",
-         icon: <StaffroomIcon />,
-         title: "Staff Room",
-      },
-      {
-         key: "elevator",
-         icon: <ElevatorIcon />,
-         title: "Elevator",
-      },
-      {
-         key: "bustransport",
-         icon: <BusIcon />,
-         title: "Bus Transport",
-      },
-      {
-         key: "firesafety",
-         icon: <FiresafetyIcon />,
-         title: "Fire Safety",
-      },
-      {
-         key: "auditorium",
-         icon: <AuditoriumIcon />,
-         title: "Auditorium",
-      },
-      {
-         key: "powerbackup",
-         icon: <PowerbackupIcon />,
-         title: "Power Backup",
-      },
-      {
-         key: "parking",
-         icon: <ParkingIcon />,
-         title: "Parking",
-      },
-      {
-         key: "emergencyexit",
-         icon: <EmExitIcon />,
-         title: "Emergency Exit",
-      },
-      {
-         key: "computerlab",
-         icon: <LabIcon />,
-         title: "Computer lab",
-      },
-      {
-         key: "canteen",
-         icon: <CanteenIcon />,
-         title: "Canteen",
-      },
-      {
-         key: "cctv",
-         icon: <CCTVIcon />,
-         title: "CCTV",
-      },
-      {
-         key: "playground",
-         icon: <PlaygroundIcon />,
-         title: "Play Ground",
-      },
-   ];
+    }
+    setInfraChecks(tempArr);
+  };
 
-   const finalArray = [];
+  useEffect(() => {
+    setFetchedItems();
+  }, []);
 
-   tempArray.map(value => {
-      const selected = Infra.filter(infra => infra.key === value)
-      finalArray.push(selected[0]);
-   })
+  const handleChange = (e) => {
+    if (editable) {
+      setFormData({
+        ...formData,
+        moreinfo: e.target.value,
+      });
+    } else {
+      toast.dismiss();
+      toast.error("Edit Details not allowed !!");
+    }
+  };
 
-   return (
+  const handleCheckChange = (key, value) => {
+    if (editable) {
+      setFormData({
+        ...formData,
+        [key]: value,
+      });
+    } else {
+      toast.dismiss();
+      toast.error("Edit Details not allowed !!");
+    }
+  };
+
+  const handleFormSubmit = async () => {
+    const loading = toast.loading("Saving details...");
+    try {
+      const { data } = await axios.put(
+        `/v2/edit/infrastr/${formData.infraid}`,
+        formData,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      setEditable(false);
+      toast.dismiss(loading);
+      toast.success("Details updated successfully !!");
+    } catch (err) {
+      console.log(err);
+      toast.dismiss(loading);
+      toast.error("Something went wrong, please try again !!");
+    }
+  };
+
+  return (
+    <>
       <Wrapper>
-         <div className="infra-items-main">
-            <ul>
-               {finalArray.map((item, index) => (
-                  <InfraItem key={index} title={item.title} icon={item.icon} />
-               ))}
-            </ul>
-         </div>
-
-         <div className="more-info">
-            <div className="title">
-               <h4>More Info...</h4>
-            </div>
-            <div className="info">
-               <p>{data?.[0]?.moreinfo}</p>
-            </div>
-         </div>
+        <div className="infra-left">
+          <div className="infra-radios-main">
+            {CheckData.map((item, index) => (
+              <InfraChecks
+                disabled={!editable}
+                key={index}
+                name="infra-checks"
+                data={item}
+                infraChecks={infraChecks}
+                formData={formData}
+                handleCheckChange={handleCheckChange}
+                setInfraChecks={setInfraChecks}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="infra-right">
+          <MoreInfoField
+            height={"500px"}
+            name="moreinfo"
+            value={formData?.moreinfo}
+            handleChange={handleChange}
+          />
+        </div>
       </Wrapper>
-   );
+      <div className="bottom-ctas-styles save-cta-main">
+        {editable && (
+          <button
+            className="cancel-btn-cta"
+            onClick={() => {
+              setEditable(false);
+              setFormData(data);
+            }}
+          >
+            Cancel
+          </button>
+        )}
+        {editable ? (
+          <button onClick={handleFormSubmit}>Save</button>
+        ) : (
+          <button
+            id="editBtn"
+            onClick={() => {
+              setEditable(true);
+            }}
+          >
+            Edit
+          </button>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default InfrastructureBlock;

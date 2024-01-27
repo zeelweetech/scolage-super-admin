@@ -25,6 +25,7 @@
       "dayjs": "^1.11.8",
       "emoji-picker-react": "^4.4.9",
       "file-saver": "^2.0.5",
+      "google-map-react": "^2.2.1",
       "highcharts": "^11.2.0",
       "highcharts-react-official": "^3.2.1",
       "moment": "^2.29.4",
