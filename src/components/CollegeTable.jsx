@@ -264,7 +264,7 @@ const CollegeTable = () => {
   const { setProgressBar } = useLoadingBar();
   const [record, setRecord] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
-
+  console.log("record", record);
   const navigate = useNavigate();
 
   const getCollegeList = async () => {
@@ -295,7 +295,9 @@ const CollegeTable = () => {
   };
   const paymentStatus = (record) => {
     return (
-      <p className={`payment-status ${getPStatus(record)}`}>{record.pStatus}</p>
+      <p className={`payment-status ${getPStatus(record)}`}>
+        {record.pStatus ? record.pStatus : "-"}
+      </p>
     );
   };
 
@@ -314,7 +316,17 @@ const CollegeTable = () => {
 
   const onboardStatus = (record) => {
     return (
-      <p className={`onboard-status ${getOStatus(record)}`}>{record.oStatus}</p>
+      <p className={`onboard-status ${getOStatus(record)}`}>
+        {record.oStatus ? record.oStatus : "-"}
+      </p>
+    );
+  };
+
+  const onCollegeType = (record) => {
+    return (
+      <p className={`onboard-status ${getOStatus(record)}`}>
+        {record.cType ? record.cType : "-"}
+      </p>
     );
   };
 
@@ -521,6 +533,7 @@ const CollegeTable = () => {
           style={{ minWidth: "150px" }}
           field="cType"
           header="College Type 10+2 or 12+3"
+          body={onCollegeType}
         ></Column>
         <Column
           className="tableText text-center"

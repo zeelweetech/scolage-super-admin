@@ -76,38 +76,85 @@
 // export default Calendar;
 
 import React, { useState } from "react";
-import { Calendar } from 'primereact/calendar';
+import { Calendar } from "primereact/calendar";
 
 import styled from "styled-components";
-                                 
-        
 
 const Wrapper = styled.div`
-   .p-calendar {
-      width: 100%;
-   }
-   .p-datepicker {
-      border: none;
+  .p-calendar {
+    width: 100%;
+  }
+  .p-datepicker {
+    border: none;
+    padding: 0;
+    table td {
       padding: 0;
-      table td {
-         padding: 0;
-      }
-   }
-   .p-datepicker table td.p-datepicker-today > span{
-      background: #60269E;
-      color: #fff;
-      border-radius: 16px;
-   }
+    }
+  }
+  .p-datepicker table td.p-datepicker-today > span {
+    background: #60269e;
+    color: #fff;
+    border-radius: 16px;
+  }
 `;
 
-const CalendarMain = () => {
-   const [date, setDate] = useState(null);
+const CalendarMain = ({ record }) => {
+  const [date, setDate] = useState(null);
 
-   return (
-      <Wrapper>
-         <Calendar value={date} onChange={(e) => setDate(e)} inline />
-      </Wrapper>
-   );
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    const formattedDate = `${(date.getMonth() < 9
+      ? "0" + (date?.getMonth() + 1)
+      : date?.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}/${date
+      ?.getDate()
+      .toString()
+      .padStart(2, "0")}/${date?.getFullYear()}`;
+
+    return formattedDate.trim();
+  };
+  const createdAt = record?.map((item) => formatDate(item.createdAt));
+
+  const dateTemplate = (date) => {
+    const Date = `${date.month < 9 ? "0" + (date.month + 1) : date.month + 1}/${
+      date.day
+    }/${date.year}`;
+    const isAccepted = createdAt?.includes(Date);
+    console.log("isAccepted", isAccepted);
+
+    const dotStyle = {
+      width: "4px",
+      height: "4px",
+      backgroundColor: "#60269e",
+      borderRadius: "50%",
+      display: "block",
+      marginLeft: "auto",
+      marginRight: "auto",
+      marginTop: "2px",
+    };
+
+    if (isAccepted) {
+      return (
+        <strong>
+          {date.day} <span style={dotStyle}></span>
+        </strong>
+      );
+    }
+    return date.day;
+  };
+
+  return (
+    <Wrapper>
+      <Calendar
+        value={date}
+        onChange={(e) => setDate(e)}
+        inline
+        dateTemplate={dateTemplate}
+      />
+    </Wrapper>
+  );
 };
 
 export default CalendarMain;

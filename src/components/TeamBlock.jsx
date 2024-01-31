@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Calendar from "./Calendar";
 import InsertTeamForm from "./InsertTeamForm";
 import TeamTable from "./TeamTable";
 import { useState } from "react";
@@ -8,6 +7,7 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 import CryptoJS from "crypto-js";
 import { useLoadingBar } from "../context/LoadingBarContext";
+import Calendar from "./Calendar";
 
 const Wrapper = styled.div`
   display: flex;
@@ -91,6 +91,7 @@ const TeamBlock = () => {
       toast.error("Something went wrong !!");
     }
   };
+  console.log("record", record);
 
   useEffect(() => {
     getData();
@@ -134,7 +135,7 @@ const TeamBlock = () => {
       </div>
 
       <div className="Calendar-block">
-        <Calendar />
+        <Calendar record={record} />
       </div>
     </Wrapper>
   );
