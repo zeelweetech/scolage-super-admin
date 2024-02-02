@@ -58,13 +58,7 @@ const CollegeProfile = () => {
   return (
     <Layout headerTitle={"College Profile"}>
       <AddClgAccordion accTitle={"COLLEGE LOGIN IDS"}>
-        <ul>
-          <LoginId />
-          {/* <LoginId />
-               <LoginId />
-               <LoginId />
-               <LoginId /> */}
-        </ul>
+        {collegeData && <LoginId info={collegeData?.college} />}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"COLLEGE DETAILS"}>
         {collegeData && <ClgDetailsBlock data={collegeData?.college} />}

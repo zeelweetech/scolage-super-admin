@@ -140,10 +140,10 @@ const Wrapper = styled.li`
   }
 `;
 
-const LoginId = () => {
+const LoginId = ({ info }) => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
-  const collegeId = localStorage.getItem("collegeId");
+  // const collegeId = localStorage.getItem("collegeId");
 
   const handleOnChange = (e) => {
     const { value, name } = e.target;
@@ -177,15 +177,20 @@ const LoginId = () => {
   };
 
   const handleOnSubmit = async (e) => {
+    console.log("****");
     e.preventDefault();
+    console.log("****$$$$$$");
+
     if (validation()) {
+    console.log("****#####");
+
       try {
         const body = {
           name: values?.name,
           email: values?.email,
           password: values?.password,
           role: values?.role,
-          collegeid: collegeId,
+          collegeid: info?.collegeid,
         };
         const { data } = await axios.post(`/v2/add/team/clg`, body, {
           headers: {
