@@ -69,7 +69,11 @@ const InsertTeamForm = ({ record, setRecord }) => {
     };
 
     try {
-      const { data } = await axios.post("/v2/reg/team", tempData);
+      const { data } = await axios.post("/v2/reg/team", tempData, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
       setRecord([...record, { ...tempData }]);
       e.target.name.value = "";
       e.target.employeeId.value = "";

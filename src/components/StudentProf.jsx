@@ -313,7 +313,8 @@ const StudentProf = () => {
           Authorization: localStorage.getItem("token"),
         },
       });
-      setStudent(data.appliedclgdata[0]);
+      console.log("data", data);
+      setStudent(data?.appliedclgdata[0]);
     } catch (err) {
       console.log(err);
       toast.error("Failed to load data !!");
@@ -321,36 +322,41 @@ const StudentProf = () => {
   };
 
   const AppliedCollege = async () => {
-    try {
-      const { data } = await axios.get(
-        `/v2/appliedclg/get/${student?.studentid}`
-      );
-      setAppliedData(data?.appliedClgData);
-    } catch (err) {
-      console.log(err);
-      toast.error("Somthing wents wrong !!");
+    if (student?.studentid) {
+      try {
+        const { data } = await axios.get(
+          `/v2/appliedclg/get/${student?.studentid}`
+        );
+        setAppliedData(data?.appliedClgData);
+      } catch (err) {
+        console.log(err);
+        toast.error("Somthing wents wrong !!");
+      }
     }
   };
+  console.log("student", student);
 
   const Reviwes = async () => {
-    try {
-      const { data } = await axios.get(
-        `/v2/get/reviews/student/${student?.studentid}`
-      );
-      setReviwesData(data?.responseDataArray);
-    } catch (err) {
-      console.log(err);
-      toast.error("Somthing wents wrong !!");
+    if (student?.studentid) {
+      try {
+        const { data } = await axios.get(
+          `/v2/get/reviews/student/${student?.studentid}`
+        );
+        setReviwesData(data?.responseDataArray);
+      } catch (err) {
+        console.log(err);
+        toast.error("Somthing wents wrong !!");
+      }
     }
   };
 
   useEffect(() => {
     AppliedCollege();
-  }, [appliedData === undefined ? appliedData : "", student]);
+  }, [appliedData === undefined ? appliedData : "", student , student?.studentid]);
 
   useEffect(() => {
     Reviwes();
-  }, [reviwesData === undefined ? reviwesData : ""]);
+  }, [reviwesData === undefined ? reviwesData : "" , student?.studentid]);
 
   useEffect(() => {
     getStudentInfos();

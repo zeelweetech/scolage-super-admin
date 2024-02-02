@@ -790,7 +790,11 @@ const CollegeDetailForm = () => {
 
       setProgressBar(60);
 
-      const { data } = await axios.post("/v2/reg/clgdetail", newObj);
+      const { data } = await axios.post("/v2/reg/clgdetail", newObj, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
       formRef.current.reset();
       localStorage.setItem("collegeId", data.collegeid);
       setProgressBar(100);

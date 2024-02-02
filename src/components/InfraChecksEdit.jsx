@@ -96,7 +96,18 @@ const CheckStyles = styled.div`
   }
 `;
 
-const InfraChecks = ({ data, infraChecks, setInfraChecks, name }) => {
+const InfraChecksEdit = ({
+  data,
+  infraChecks,
+  setInfraChecks,
+  name,
+  disabled,
+  formData,
+  handleCheckChange,
+}) => {
+  console.log("formData", formData?.[data.key]);
+  console.log("data", data);
+
   const onChecksChange = (e) => {
     console.log(e);
     let _checkedItems = [...infraChecks];
@@ -113,8 +124,11 @@ const InfraChecks = ({ data, infraChecks, setInfraChecks, name }) => {
         inputId={name + data.id}
         name={name}
         value={data.key}
-        onChange={onChecksChange}
-        checked={infraChecks.includes(data.key)}
+        onChange={(e) => {
+          handleCheckChange(data.key, e.checked);
+        }}
+        checked={formData?.[data.key] == true}
+        disabled={disabled}
       />
       <label htmlFor={name + data.id}>
         <div className="icon">{data.icon}</div>
@@ -124,4 +138,4 @@ const InfraChecks = ({ data, infraChecks, setInfraChecks, name }) => {
   );
 };
 
-export default InfraChecks;
+export default InfraChecksEdit;

@@ -103,15 +103,16 @@ const CalendarMain = ({ record }) => {
 
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
-    const formattedDate = `${(date.getMonth() < 9
+    const formattedDate = `${(date.getMonth() < 10
       ? "0" + (date?.getMonth() + 1)
       : date?.getMonth() + 1
     )
       .toString()
-      .padStart(2, "0")}/${date
-      ?.getDate()
-      .toString()
-      .padStart(2, "0")}/${date?.getFullYear()}`;
+      .padStart(2, "0")}/${
+      date?.getDate() < 10
+        ? "0" + date?.getDate()
+        : date?.getDate().toString().padStart(2, "0")
+    }/${date?.getFullYear()}`;
 
     return formattedDate.trim();
   };

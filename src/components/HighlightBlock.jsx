@@ -2,10 +2,10 @@ import toast from "react-hot-toast";
 import CareerIcon from "../Icons/CareerIcon";
 import ScholarshipIcon from "../Icons/ScholarshipIcon";
 import SkillIcon from "../Icons/SkillIcon";
-import HighlightChecks from "./HighlightChecks";
 import { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import HighlightChecksEdit from "./HighlightChecksEdit";
 
 const Wrapper = styled.div`
   .highlight-check-main {
@@ -145,7 +145,7 @@ const HighlightBlock = ({ data }) => {
       <Wrapper>
         <div className="highlight-check-main">
           {highlightCheckData.map((item, index) => (
-            <HighlightChecks
+            <HighlightChecksEdit
               key={index}
               data={item}
               name="highlight"

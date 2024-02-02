@@ -86,7 +86,7 @@ const HighlightDescStyles = styled.div`
    }
 `;
 
-const HighlightChecks = ({ data, name, highlightChecks, setHighlightChecks, highlightTexts, setHighlightTexts }) => {
+const HighlightChecksEdit = ({ data, name, highlightChecks, setHighlightChecks, formData, handleCheckChange, handleDescChange }) => {
    const onChecksChange = (e) => {
       let _checkedItems = [...highlightChecks];
 
@@ -96,35 +96,35 @@ const HighlightChecks = ({ data, name, highlightChecks, setHighlightChecks, high
       setHighlightChecks(_checkedItems);
    };
 
-   const handleTextareaChange = (e, name) => {
-      const { value } = e.target;
-      const textareaIndex = highlightTexts.findIndex((textarea) => textarea.name === name);
-
-      if (textareaIndex !== -1) {
-         setHighlightTexts((prevValues) => {
-            const newValues = [...prevValues];
-            newValues[textareaIndex].value = value;
-            return newValues;
-         });
-      } else {
-         setHighlightTexts((prevValues) => [...prevValues, { name, value }]);
-      }
-   };
-
    return (
       <Wrapper>
          <CheckStyles className="flex align-items-center">
-            <Checkbox inputId={name + data.id} name={name} value={data.value} onChange={onChecksChange} checked={highlightChecks.includes(data.value)} />
+            <Checkbox
+               inputId={name + data.id}
+               name={name}
+               value={data.key}
+               onChange={(e) => {
+                  handleCheckChange(data.key, e.checked);
+               }}
+               checked={formData[data.key]?.[0]?.status}
+            />
             <label htmlFor={name + data.id}>
                <div className="icon">{data.icon}</div>
                <p>{data.label}</p>
             </label>
          </CheckStyles>
          <HighlightDescStyles>
-            <textarea name={data.value} value={highlightTexts[data.value]} onChange={(e) => handleTextareaChange(e, data.value)} disabled={!highlightChecks.includes(data.value)} placeholder="Description"></textarea>
+            <textarea
+               placeholder="Description"
+               disabled={!formData[data.key]?.[0]?.status}
+               onChange={(e) => {
+                  handleDescChange(data.key, e.target.value);
+               }}
+               value={formData[data.key]?.[0]?.description}
+            ></textarea>
          </HighlightDescStyles>
       </Wrapper>
    );
 };
 
-export default HighlightChecks;
+export default HighlightChecksEdit;

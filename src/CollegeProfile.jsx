@@ -21,6 +21,8 @@ import CollegeImagesView from "./components/CollegeImagesView";
 import YoutubeView from "./components/YoutubeView";
 import CulturalBlock from "./components/CulturalBlock";
 import AcademicBlock from "./components/AcademicBlock";
+import CulturalForm from "./components/CulturalForm";
+import AcademicForm from "./components/AcademicForm";
 
 const CollegeProfile = () => {
   const [collegeData, setCollegeData] = useState(null);
@@ -77,10 +79,10 @@ const CollegeProfile = () => {
         {collegeData && <SportBlock data={collegeData?.sports} />}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"CULTURAL"}>
-        {collegeData && <CulturalBlock data={collegeData?.cultural} />}
+        {collegeData && <CulturalForm data={collegeData?.cultural} />}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"ACADEMICS"}>
-        {collegeData && <AcademicBlock data={collegeData?.acedemic} />}
+        {collegeData && <AcademicForm data={collegeData?.acedemic} />}
       </AddClgAccordion>
 
       <AddClgAccordion accTitle={"ALUMNI AND TOPPERS"}>

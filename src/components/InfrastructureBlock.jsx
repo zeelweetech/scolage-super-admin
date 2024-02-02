@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import CheckData from "../../helper/InfraCheckData";
 import toast from "react-hot-toast";
 import axios from "axios";
+import InfraChecksEdit from "./InfraChecksEdit";
 
 const Wrapper = styled.div`
   display: flex;
@@ -40,10 +41,11 @@ const Wrapper = styled.div`
 `;
 
 const InfrastructureBlock = ({ data }) => {
-  // console.log(data)
+  // console.log(info)
   const [infraChecks, setInfraChecks] = useState([]);
   const [editable, setEditable] = useState(false);
   const [formData, setFormData] = useState(data);
+  console.log("info" ,data);
 
   const setFetchedItems = () => {
     var tempArr = [];
@@ -104,6 +106,7 @@ const InfrastructureBlock = ({ data }) => {
       toast.error("Something went wrong, please try again !!");
     }
   };
+  console.log("formData*****" , formData);
 
   return (
     <>
@@ -111,7 +114,7 @@ const InfrastructureBlock = ({ data }) => {
         <div className="infra-left">
           <div className="infra-radios-main">
             {CheckData.map((item, index) => (
-              <InfraChecks
+              <InfraChecksEdit
                 disabled={!editable}
                 key={index}
                 name="infra-checks"
