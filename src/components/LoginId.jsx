@@ -3,6 +3,9 @@ import EditIcon from "../Icons/EditIcon";
 import { useState } from "react";
 import { Dropdown } from "primereact/dropdown";
 import axios from "axios";
+import toast from "react-hot-toast";
+import eyeHide from "../assets/icons8-hide-30.png";
+import eyeShow from "../assets/icons8-eye-30.png";
 
 // const DropdownFieldStyles = styled.div`
 //   display: flex;
@@ -71,6 +74,7 @@ const Wrapper = styled.li`
     border-radius: 20px;
     text-align: center;
     padding: 20px;
+    position: relative;
     input {
       font-weight: 400;
       font-size: 20px;
@@ -78,6 +82,13 @@ const Wrapper = styled.li`
       color: #7a86a1;
       display: flex;
     }
+  }
+  .password-toggle {
+    position: absolute;
+    top: 55%;
+    right: 460px;
+    transform: translateY(-50%);
+    cursor: pointer;
   }
 
   .edit-ctas {
@@ -122,6 +133,9 @@ const Wrapper = styled.li`
     .edit-ctas {
       gap: 30px;
     }
+    .password-toggle {
+      right: 5px;
+    }
   }
 
   @media (min-width: 1281px) and (max-width: 1440px) {
@@ -143,12 +157,17 @@ const Wrapper = styled.li`
 const LoginId = ({ info }) => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
   // const collegeId = localStorage.getItem("collegeId");
 
   const handleOnChange = (e) => {
     const { value, name } = e.target;
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: "" });
+  };
+
+  const handleTogglePassword = () => {
+    setShowPassword((prev) => !prev);
   };
 
   const validation = () => {
@@ -177,13 +196,9 @@ const LoginId = ({ info }) => {
   };
 
   const handleOnSubmit = async (e) => {
-    console.log("****");
     e.preventDefault();
-    console.log("****$$$$$$");
 
     if (validation()) {
-    console.log("****#####");
-
       try {
         const body = {
           name: values?.name,
@@ -197,20 +212,20 @@ const LoginId = ({ info }) => {
             Authorization: localStorage.getItem("token"),
           },
         });
-        console.log("data", data);
-        setValues({
-          name: "",
-          email: "",
-          password: "",
-          role: "",
-        });
+        // toast.dismiss(loading);
+        toast.success("College login add successfully !!");
+        // setValues({
+        //   name: "",
+        //   email: "",
+        //   password: "",
+        //   role: "",
+        // });
       } catch (err) {
         console.log(err);
-        toast("Something went wrong, please try again");
+        toast.error("Something went wrong, please try again");
       }
     }
   };
-  console.log("values", values);
 
   return (
     <Wrapper>
@@ -238,10 +253,16 @@ const LoginId = ({ info }) => {
 
       <input
         className="login-info user-password"
-        type="password"
+        type={showPassword ? "text" : "password"}
         name="password"
         placeholder="Password"
         onChange={(e) => handleOnChange(e)}
+      />
+      <img
+        src={showPassword ? eyeShow : eyeHide}
+        alt="Toggle Password"
+        className="password-toggle"
+        onClick={handleTogglePassword}
       />
       {errors?.password && (
         <p className="text-red-500 text-xs mb-1">{errors?.name}</p>

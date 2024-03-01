@@ -8,6 +8,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useRef } from "react";
 import { useLoadingBar } from "../context/LoadingBarContext";
+import eye from "../assets/icons8-hide-30.png";
+import eyeShow from "../assets/icons8-eye-30.png";
 
 const Wrapper = styled.div`
   display: flex;
@@ -40,6 +42,7 @@ const Wrapper = styled.div`
 `;
 
 const InputFieldStyles = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   padding-bottom: 25px;
@@ -71,6 +74,15 @@ const InputFieldStyles = styled.div`
         border-color: #60269e;
         filter: drop-shadow(1.389px 7.878px 20px rgba(105, 95, 151, 0.122));
       }
+    }
+    .password-toggle {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-100%);
+      height: 25px;
+      width: 25px;
+      cursor: pointer;
     }
 
     &.input-group {
@@ -109,7 +121,14 @@ const InputFieldStyles = styled.div`
   }
 `;
 
-const InputField = ({ title, id, placeholder, type = "text", name }) => {
+const InputField = ({
+  title,
+  id,
+  placeholder,
+  type,
+  name,
+  onTogglePassword,
+}) => {
   return (
     <InputFieldStyles>
       <label htmlFor={id}>{title}</label>
@@ -121,6 +140,23 @@ const InputField = ({ title, id, placeholder, type = "text", name }) => {
           placeholder={placeholder}
           required
         />
+        {type === "password" && onTogglePassword && (
+          <img
+            src={eye}
+            alt=""
+            className="password-toggle"
+            onClick={onTogglePassword}
+          />
+        )}
+
+        {type === "text" && onTogglePassword && (
+          <img
+            src={eyeShow}
+            alt="Toggle Password"
+            className="password-toggle"
+            onClick={onTogglePassword}
+          />
+        )}
       </div>
     </InputFieldStyles>
   );
@@ -705,6 +741,7 @@ const CollegeDetailForm = () => {
   const [phoneType2, setPhoneType2] = useState("mobile");
   const typeOpt = [{ name: "mobile" }, { name: "telephone" }];
   const [secPhone, setSecPhone] = useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const formRef = useRef(null);
 
@@ -786,6 +823,8 @@ const CollegeDetailForm = () => {
           Mon_to_Sat: selectedWorkingDays,
         },
         more_info: e.target.moreInfo.value,
+        Description: e.target.Description.value,
+        History_Achievements: e.target.History_Achievements.value,
       };
 
       setProgressBar(60);
@@ -795,7 +834,7 @@ const CollegeDetailForm = () => {
           Authorization: localStorage.getItem("token"),
         },
       });
-      formRef.current.reset();
+      // formRef.current.reset();
       localStorage.setItem("collegeId", data.collegeid);
       setProgressBar(100);
       toast.dismiss(loading);
@@ -820,6 +859,10 @@ const CollegeDetailForm = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <>
       <form ref={formRef} onSubmit={handleFormSubmit}>
@@ -840,10 +883,11 @@ const CollegeDetailForm = () => {
             />
             <InputField
               title="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               name={"password"}
               id="password"
               placeholder="password"
+              onTogglePassword={togglePasswordVisibility}
             />
             <PhoneInput
               id={"phone"}
@@ -991,6 +1035,22 @@ const CollegeDetailForm = () => {
                 </div>
               </div>
             </TimingStyles>
+
+            <InputField
+              title="History and Achievement"
+              type="text"
+              name={"History_Achievements"}
+              id="History_Achievements"
+              placeholder="History and Achievement"
+            />
+
+            <InputField
+              title="Discription Box"
+              type="text"
+              name={"Description"}
+              id="Description"
+              placeholder="Description Box"
+            />
 
             <MoreInfoField name={"moreInfo"} />
           </div>

@@ -140,10 +140,10 @@ const SportUploadBlock = () => {
         },
       });
 
-      if (data) {
-        formRef.current.reset();
-        setSportsList([{ image: "", more_info: "", imgPreview: "" }]);
-      }
+      // if (data) {
+      //   formRef.current.reset();
+      //   setSportsList([{ image: "", more_info: "", imgPreview: "" }]);
+      // }
       toast.dismiss(loading);
       toast.success("Details added successfully");
     } catch (err) {

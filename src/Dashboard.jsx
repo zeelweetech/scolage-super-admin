@@ -168,7 +168,7 @@ const Dashboard = () => {
             </div>
             <div className="task-team-main">
               <div className="tasks">
-                <TaskBlock />
+                <TaskBlock countData={countData}/>
               </div>
               <div className="team-activity">
                 <TeamActivity />

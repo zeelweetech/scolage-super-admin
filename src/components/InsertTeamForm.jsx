@@ -2,6 +2,9 @@ import styled from "styled-components";
 import AddIconWB from "../Icons/AddIconWB";
 import toast from "react-hot-toast";
 import axios from "axios";
+import eyeHide from "../assets/icons8-hide-30.png";
+import eyeShow from "../assets/icons8-eye-30.png";
+import { useState } from "react";
 
 const Wrapper = styled.div`
   max-width: 720px;
@@ -33,6 +36,7 @@ const Wrapper = styled.div`
 `;
 
 const InsertFieldStyles = styled.div`
+  position: relative;
   input {
     border: 1px solid #707070;
     background: #fff;
@@ -47,9 +51,19 @@ const InsertFieldStyles = styled.div`
     color: #000;
     outline: none;
   }
+  .password-toggle {
+    position: absolute; /* Position the eye icon */
+    top: 50%;
+    right: 10px; /* Adjust as needed */
+    transform: translateY(-50%);
+    cursor: pointer;
+    hight: 25px;
+    width: 25px;
+  }
 `;
 
 const InsertTeamForm = ({ record, setRecord }) => {
+  const [showPassword, setShowPassword] = useState(false);
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -88,6 +102,10 @@ const InsertTeamForm = ({ record, setRecord }) => {
     }
   };
 
+  const handleTogglePassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <Wrapper>
       <form className="team-insert-form" onSubmit={handleFormSubmit}>
@@ -106,10 +124,16 @@ const InsertTeamForm = ({ record, setRecord }) => {
         </InsertFieldStyles>
         <InsertFieldStyles>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             onCopy={(e) => e.preventDefault()}
             name="password"
             placeholder="Password"
+          />
+          <img
+            src={showPassword ? eyeShow : eyeHide}
+            alt="Toggle Password"
+            className="password-toggle"
+            onClick={handleTogglePassword}
           />
         </InsertFieldStyles>
         <div className="add-user-cta">

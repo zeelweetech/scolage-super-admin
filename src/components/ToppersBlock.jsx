@@ -164,19 +164,19 @@ const ToppersBlock = () => {
         },
       });
 
-      if (data) {
-        formRef.current.reset();
-        setTopperInfoList([
-          {
-            image: "",
-            name: "",
-            passYear: "",
-            marks: "",
-            moreInfo: "",
-            imagePreview: "",
-          },
-        ]);
-      }
+      // if (data) {
+      //   formRef.current.reset();
+      //   setTopperInfoList([
+      //     {
+      //       image: "",
+      //       name: "",
+      //       passYear: "",
+      //       marks: "",
+      //       moreInfo: "",
+      //       imagePreview: "",
+      //     },
+      //   ]);
+      // }
       toast.dismiss(loading);
       toast.success("Details added successfully");
     } catch (err) {

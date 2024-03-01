@@ -128,11 +128,11 @@ const HighlightForm = () => {
           Authorization: localStorage.getItem("token"),
         },
       });
-      if (data) {
-        formRef.current.reset();
-        setHighlightChecks([]);
-        setHighlightTexts([]);
-      }
+      // if (data) {
+      //   formRef.current.reset();
+      //   setHighlightChecks([]);
+      //   setHighlightTexts([]);
+      // }
       toast.dismiss(loading);
       toast.success("Data added successfully.");
     } catch (err) {

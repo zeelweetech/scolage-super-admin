@@ -127,7 +127,7 @@ const ImageItemStyle = styled.div`
   }
 `;
 
-const CollegeImagesView = ({ data }) => {
+const CollegeImagesView = ({ data, id }) => {
   console.log(data);
   const [collegeImage, setCollegeImage] = useState([]);
   const [editable, setEditable] = useState(false);
@@ -221,7 +221,7 @@ const CollegeImagesView = ({ data }) => {
     e.preventDefault();
     const loading = toast.loading("Saving...");
     try {
-      const collegeId = localStorage.getItem("collegeId");
+      const collegeId = id ? id : localStorage.getItem("collegeId");
 
       if (!collegeId) {
         toast.dismiss(loading);

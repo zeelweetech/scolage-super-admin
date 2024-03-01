@@ -307,7 +307,7 @@ const valueTemplate = (option) => {
     );
   }
 };
-const StaffForm = ({ staffData, setStaffData }) => {
+const StaffForm = ({ staffData, setStaffData, id }) => {
   const [totalExp, setTotalExp] = useState(10);
   const [currentExp, setCurrentExp] = useState(2);
   const [avatar, setAvatar] = useState();
@@ -349,7 +349,8 @@ const StaffForm = ({ staffData, setStaffData }) => {
     e.preventDefault();
     const loading = toast.loading("Adding Details...");
     try {
-      const collegeId = localStorage.getItem("collegeId");
+      // const collegeId = localStorage.getItem("collegeId");
+      const collegeId = id ? id : localStorage.getItem("collegeId");
       if (!collegeId) {
         toast.dismiss(loading);
         toast.error("College Id not found, Please add college details first.");
@@ -379,8 +380,13 @@ const StaffForm = ({ staffData, setStaffData }) => {
       setStaffData([...staffData, data.data]);
       toast.dismiss(loading);
       toast.success("Details added successfully");
-      formRef.current.reset();
-      setAvatarPreview(null);
+      if (id) {
+        formRef.current.reset();
+        setAvatarPreview(null);
+      } else {
+        // formRef.current.reset();
+        // setAvatarPreview(null);
+      }
     } catch (err) {
       console.log(err);
       toast.dismiss(loading);

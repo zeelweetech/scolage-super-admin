@@ -41,7 +41,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const FeeStructureBlock = ({ data }) => {
+const FeeStructureBlock = ({ data, id }) => {
   // console.log(data);
   const [note, setNote] = useState(data);
   const [editable, setEditable] = useState(false);
@@ -61,7 +61,7 @@ const FeeStructureBlock = ({ data }) => {
     e.preventDefault();
     const loading = toast.loading("Saving...");
     try {
-      const collegeId = localStorage.getItem("collegeId");
+      const collegeId = id ? id : localStorage.getItem("collegeId");
 
       if (!collegeId) {
         toast.dismiss(loading);

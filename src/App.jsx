@@ -27,44 +27,44 @@ import ProgressBar from "./components/LoadingBar";
 // axios.defaults.baseURL = 'https://random-data-api.com/api/v2';
 
 function App() {
-   const [progress, setProgress] = useState(50);
-   return (
-      <BrowserRouter>
-         <LoadingBarProvider>
-            <ProgressBar /> 
-            <GlobalStyles />
-            <ScrollToTop />
+  const [progress, setProgress] = useState(50);
+  return (
+    <BrowserRouter>
+      <LoadingBarProvider>
+        <ProgressBar />
+        <GlobalStyles />
+        <ScrollToTop />
 
-            <Toaster
-               position="bottom-right"
-               toastOptions={{
-                  style: {
-                     fontSize: "1.3rem",
-                  },
-               }}
-            />
-            <Routes>
-               <Route path="/" element={<GoDash />} />
-               <Route path="/signin" element={<SignIn />} />
-               <Route path="/forgot" element={<Forgot />} />
-               <Route element={<PrivateRoute />}>
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/colleges" element={<Colleges />} />
-                  <Route path="/college/:id" element={<CollegeProfile />} />
-                  <Route path="/applicants" element={<Applicants />} />
-                  <Route path="/student/:id" element={<StudentProf />} />
-                  <Route path="/financial" element={<Financial />} />
-                  <Route path="/add-college" element={<AddCollege />} />
-                  <Route path="/team" element={<Team />} />
-                  <Route path="/team/:id" element={<TeamMember />} />
-                  <Route path="/inbox" element={<Inbox />} />
-               </Route>
+        <Toaster
+          position="bottom-right"
+          toastOptions={{
+            style: {
+              fontSize: "1.3rem",
+            },
+          }}
+        />
+        <Routes>
+          <Route path="/" element={<GoDash />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/forgot" element={<Forgot />} />
+          <Route element={<PrivateRoute />}>
+            <Route  path="/dashboard" element={<Dashboard />} />
+            <Route path="/colleges" element={<Colleges />} />
+            <Route path="/college/:id" element={<CollegeProfile />} />
+            <Route path="/applicants" element={<Applicants />} />
+            <Route path="/student/:id" element={<StudentProf />} />
+            <Route path="/financial" element={<Financial />} />
+            <Route path="/add-college" element={<AddCollege />} />
+            <Route path="/team" element={<Team />} />
+            <Route path="/team/:id" element={<TeamMember />} />
+            <Route path="/inbox" element={<Inbox />} />
+          </Route>
 
-               <Route path="*" element={<Error404 />} />
-            </Routes>
-         </LoadingBarProvider>
-      </BrowserRouter>
-   );
+          <Route path="*" element={<Error404 />} />
+        </Routes>
+      </LoadingBarProvider>
+    </BrowserRouter>
+  );
 }
 
 export default App;

@@ -73,8 +73,8 @@ const InfrastructureForm = () => {
         },
       });
       if (data) {
-        formRef.current.reset();
-        setInfraChecks([]);
+        // formRef.current.reset();
+        // setInfraChecks([]);
       }
       toast.dismiss(loading);
       toast.success("Data added successfully.");

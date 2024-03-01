@@ -123,7 +123,7 @@ const GalleryStyle = styled.div`
   }
 `;
 
-const AcademicForm = ({ data }) => {
+const AcademicForm = ({ data, id }) => {
   // console.log(data)
   const [academicList, setAcademicList] = useState([
     { image: "", more_info: "", imgPreview: "" },
@@ -155,7 +155,8 @@ const AcademicForm = ({ data }) => {
     e.preventDefault();
     const loading = toast.loading("Adding details...");
     try {
-      const collegeId = localStorage.getItem("collegeProfileId");
+      // const collegeId = localStorage.getItem("collegeProfileId");
+      const collegeId = id ? id : localStorage.getItem("collegeProfileId");
 
       if (!collegeId) {
         toast.dismiss(loading);
@@ -301,11 +302,11 @@ const AcademicForm = ({ data }) => {
     const loading = toast.loading("Removing Media File...");
     try {
       if (editable) {
-        const { data } = await axios.delete(`/academic/delete/${id}` , {
-         headers: {
-           Authorization: localStorage.getItem("token"),
-         },
-       });
+        const { data } = await axios.delete(`/academic/delete/${id}`, {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        });
 
         const tempArray = [...academicList];
         tempArray.splice(index, 1);

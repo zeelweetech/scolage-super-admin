@@ -45,7 +45,7 @@ const InfrastructureBlock = ({ data }) => {
   const [infraChecks, setInfraChecks] = useState([]);
   const [editable, setEditable] = useState(false);
   const [formData, setFormData] = useState(data);
-  console.log("info" ,data);
+  console.log("data*****" ,data);
 
   const setFetchedItems = () => {
     var tempArr = [];

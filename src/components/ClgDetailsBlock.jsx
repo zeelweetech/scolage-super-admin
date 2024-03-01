@@ -726,7 +726,6 @@ const TimingStyles = styled.div`
 `;
 
 const ClgDetailsBlock = ({ data }) => {
-  // console.log(data);
   const [formData, setFormData] = useState(data);
   const [phoneType, setPhoneType] = useState("mobile");
   const [phoneType2, setPhoneType2] = useState("mobile");
@@ -838,7 +837,9 @@ const ClgDetailsBlock = ({ data }) => {
       const collegeId = localStorage.getItem("collegeId");
 
       const { data } = await axios.patch(
-        `/v2/reg/clgdetail/update/${collegeId}`,
+        `/v2/reg/clgdetail/update/${
+          formData?.collegeid ? formData?.collegeid : collegeId
+        }`,
         formData,
         {
           headers: {
@@ -1178,7 +1179,22 @@ const ClgDetailsBlock = ({ data }) => {
               </div>
             </div>
           </TimingStyles>
-
+          <InputField
+            name={"History_Achievements"}
+            value={formData?.History_Achievements}
+            handleChange={handleChange}
+            title="History and Achievements"
+            id="History_Achievements"
+            placeholder="History_Achievements"
+          />
+          <InputField
+            name={"Description"}
+            value={formData?.Description}
+            handleChange={handleChange}
+            title="Description"
+            id="Description"
+            placeholder="Description"
+          />
           <MoreInfoField
             name={"more_info"}
             value={formData?.more_info}

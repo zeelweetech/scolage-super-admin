@@ -291,7 +291,15 @@ const CollegeTable = () => {
   }, []);
 
   const ratingBodyTemplate = (record) => {
-    return <Rating value={3} stars={4} readOnly cancel={false} />;
+    console.log("record", record);
+    return (
+      <Rating
+        value={record?.review}
+        stars={5}
+        readOnly
+        cancel={false}
+      />
+    );
   };
   const paymentStatus = (record) => {
     return (

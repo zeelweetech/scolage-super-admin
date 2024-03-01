@@ -193,10 +193,10 @@ const CollegeImagesBlock = () => {
         },
       });
 
-      if (data) {
-        formRef.current.reset();
-        setCollegeImage([{ image: null, imagePreview: null, title: "" }]);
-      }
+      // if (data) {
+      //   formRef.current.reset();
+      //   setCollegeImage([{ image: null, imagePreview: null, title: "" }]);
+      // }
       toast.dismiss(loading);
       toast.success("Details added successfully");
       setProgressBar(100);

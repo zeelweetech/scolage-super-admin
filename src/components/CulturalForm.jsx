@@ -122,7 +122,7 @@ const GalleryStyle = styled.div`
   }
 `;
 
-const CulturalForm = ({ data }) => {
+const CulturalForm = ({ data, id }) => {
   const [culturalList, setCulturalList] = useState([]);
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -151,7 +151,8 @@ const CulturalForm = ({ data }) => {
     e.preventDefault();
     const loading = toast.loading("Adding details...");
     try {
-      const collegeId = localStorage.getItem("collegeId");
+      // const collegeId = localStorage.getItem("collegeId");
+      const collegeId = id ? id : localStorage.getItem("collegeId");
 
       if (!collegeId) {
         toast.dismiss(loading);
@@ -298,11 +299,11 @@ const CulturalForm = ({ data }) => {
     const loading = toast.loading("Removing Media File...");
     try {
       if (editable) {
-        const { data } = await axios.delete(`/culturalimage/delete/${id}` , {
-         headers: {
-           Authorization: localStorage.getItem("token"),
-         },
-       });
+        const { data } = await axios.delete(`/culturalimage/delete/${id}`, {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        });
 
         const tempArray = [...culturalList];
         tempArray.splice(index, 1);

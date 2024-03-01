@@ -87,6 +87,7 @@ const SignInForm = () => {
           role: "superadmin",
         }
       );
+      console.log("data.token" , data.token);
       localStorage.setItem("allowPrivate", status + statusText);
       localStorage.setItem("token", data.token);
       document.cookie = `jwtToken=${data.token}`;

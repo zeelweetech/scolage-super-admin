@@ -121,7 +121,7 @@ const TopperItemStyles = styled.div`
   }
 `;
 
-const ToppersInfoBlock = ({ data }) => {
+const ToppersInfoBlock = ({ data, id }) => {
   console.log(data);
   const [topperInfoList, setTopperInfoList] = useState([
     {
@@ -165,7 +165,9 @@ const ToppersInfoBlock = ({ data }) => {
     e.preventDefault();
     const loading = toast.loading("Adding details...");
     try {
-      const collegeId = localStorage.getItem("collegeProfileId");
+      // const collegeId = localStorage.getItem("collegeProfileId");
+      const collegeId = id ? id : localStorage.getItem("collegeProfileId");
+
       if (!collegeId) {
         toast.dismiss(loading);
         toast.error("College Id not found, Please add college details first.");

@@ -135,9 +135,9 @@ const FeesBlock = () => {
           Authorization: localStorage.getItem("token"),
         },
       });
-      if (data) {
-        formRef.current.reset();
-      }
+      // if (data) {
+      //   formRef.current.reset();
+      // }
       toast.dismiss(loading);
       toast.success("Details saved successfully.");
     } catch (err) {
