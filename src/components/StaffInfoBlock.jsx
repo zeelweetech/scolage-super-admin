@@ -63,8 +63,8 @@ const StaffInfoBlock = ({ data, id, getCollegeDetails }) => {
   }, []);
 
   useEffect(() => {
-    getCollegeDetails();
-  }, [staffData]);
+    setFetchedValue();
+  }, [data]);
 
   // const getStaffData = async () => {
   //    try {
@@ -98,13 +98,18 @@ const StaffInfoBlock = ({ data, id, getCollegeDetails }) => {
             <StaffList
               faculty={faculty}
               key={index}
-              setFetchedValue={setFetchedValue}
+              getCollegeDetails={getCollegeDetails}
             />
           ))}
         </ul>
       </div>
       <div className="staff-form-main">
-        <StaffForm staffData={staffData} setStaffData={setStaffData} id={id} />
+        <StaffForm
+          staffData={staffData}
+          setStaffData={setStaffData}
+          id={id}
+          getCollegeDetails={getCollegeDetails}
+        />
       </div>
     </Wrapper>
   );

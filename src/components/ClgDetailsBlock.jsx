@@ -735,6 +735,7 @@ const ClgDetailsBlock = ({ data }) => {
     latitude: null,
     longitude: null,
   });
+  console.log("formData", formData, editable);
 
   const collegeType = [{ name: "private" }, { name: "government" }];
   const systemType = [{ name: "co-ed" }, { name: "regular" }];

@@ -61,7 +61,7 @@ const StaffBlock = () => {
           Authorization: localStorage.getItem("token"),
         },
       });
-      console.log("data" , data);
+      console.log("data", data);
       const staffList = data.staff;
 
       const tempList = [];
@@ -78,10 +78,10 @@ const StaffBlock = () => {
     }
   };
 
-//   useEffect(() => {
-//     getStaffData();
-//   }, []);
-
+  //   useEffect(() => {
+  //     getStaffData();
+  //   }, []);
+  console.log("vvvvvvv", staffData);
   return (
     <Wrapper>
       <div className="staff-list-main">

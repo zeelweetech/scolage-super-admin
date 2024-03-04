@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { IoIosClose } from "react-icons/io";
 
 const Wrapper = styled.div`
   .gallery-fields {
@@ -67,6 +68,23 @@ const GalleryStyle = styled.div`
       object-fit: cover;
     }
 
+    .remove-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      border-radius: 0 0 0 10px;
+      box-shadow: 0 0 10px 5px rgb(0 0 0 / 0.1);
+      background: #fff;
+      button {
+        font-size: 24px;
+        height: 30px;
+        width: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
     .image-btn {
       position: absolute;
       bottom: 0;
@@ -110,6 +128,7 @@ const SportUploadBlock = () => {
   ]);
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
+  const [removeData, setRemoveData] = useState(false);
 
   const formRef = useRef(null);
 
@@ -139,6 +158,7 @@ const SportUploadBlock = () => {
           Authorization: localStorage.getItem("token"),
         },
       });
+      setRemoveData(false);
 
       // if (data) {
       //   formRef.current.reset();
@@ -188,6 +208,22 @@ const SportUploadBlock = () => {
       ...sportsList,
       { image: "", more_info: "", imgPreview: "" },
     ]);
+    setRemoveData(true);
+  };
+
+  const handleRemoveItem = async (sportsId, index) => {
+    const loading = toast.loading("Removing Media File...");
+    try {
+      const tempArray = [...sportsList];
+      tempArray.splice(index, 1);
+      setSportsList(tempArray);
+      toast.dismiss(loading);
+      toast.success("Media deleted successfully");
+    } catch (err) {
+      console.log(err);
+      toast.dismiss(loading);
+      toast.error("Failed to delete Media, Please try again !!");
+    }
   };
 
   return (
@@ -215,6 +251,18 @@ const SportUploadBlock = () => {
                     name={"image"}
                     onChange={(e) => handleChange(e, i)}
                   />
+                </div>
+
+                <div className="remove-btn">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleRemoveItem(item.sportsid, i);
+                    }}
+                  >
+                    <IoIosClose />
+                  </button>
                 </div>
               </div>
               <div className="info-block">

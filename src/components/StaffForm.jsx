@@ -307,7 +307,7 @@ const valueTemplate = (option) => {
     );
   }
 };
-const StaffForm = ({ staffData, setStaffData, id }) => {
+const StaffForm = ({ staffData, setStaffData, id, getCollegeDetails }) => {
   const [totalExp, setTotalExp] = useState(10);
   const [currentExp, setCurrentExp] = useState(2);
   const [avatar, setAvatar] = useState();
@@ -315,6 +315,8 @@ const StaffForm = ({ staffData, setStaffData, id }) => {
   const exp = new Array(30).fill(1).map((item, index) => item + index);
   const inputRef = useRef(null);
   const formRef = useRef(null);
+
+  console.log(staffData, "555555555555");
 
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -378,6 +380,7 @@ const StaffForm = ({ staffData, setStaffData, id }) => {
         }
       );
       setStaffData([...staffData, data.data]);
+      getCollegeDetails();
       toast.dismiss(loading);
       toast.success("Details added successfully");
       if (id) {

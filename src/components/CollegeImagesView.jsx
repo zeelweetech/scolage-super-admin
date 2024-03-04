@@ -128,7 +128,6 @@ const ImageItemStyle = styled.div`
 `;
 
 const CollegeImagesView = ({ data, id }) => {
-  console.log(data);
   const [collegeImage, setCollegeImage] = useState([]);
   const [editable, setEditable] = useState(false);
   const [, updateState] = React.useState();

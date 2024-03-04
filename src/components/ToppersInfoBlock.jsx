@@ -122,7 +122,6 @@ const TopperItemStyles = styled.div`
 `;
 
 const ToppersInfoBlock = ({ data, id }) => {
-  console.log(data);
   const [topperInfoList, setTopperInfoList] = useState([
     {
       image: "",

@@ -109,8 +109,8 @@ const InputField = ({
           id={id}
           name={name}
           placeholder={placeholder}
-         //  href={href}
-         //  target={target}
+          //  href={href}
+          //  target={target}
           required
         />
       </div>
@@ -121,7 +121,6 @@ const InputField = ({
 const YoutubeView = ({ data }) => {
   const [formData, setFormData] = useState(data);
   const [editable, setEditable] = useState(false);
-  console.log("data", data, formData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -182,50 +181,50 @@ const YoutubeView = ({ data }) => {
         </p>
         <p>
           {/* <a href={data?.videoUrl1} target="_blank"> */}
-            <InputField
-              name={"videoUrl1"}
-              value={formData?.videoUrl1}
-              handleChange={handleChange}
-              title="Youtube Link 2"
-              id="youtubeLink2"
-              placeholder="Youtube Link 2"
-            />
+          <InputField
+            name={"videoUrl1"}
+            value={formData?.videoUrl1}
+            handleChange={handleChange}
+            title="Youtube Link 2"
+            id="youtubeLink2"
+            placeholder="Youtube Link 2"
+          />
           {/* </a> */}
         </p>
         <p>
           {/* <a href={data?.videoUrl2} target="_blank"> */}
-            <InputField
-              name={"videoUrl2"}
-              value={formData?.videoUrl2}
-              handleChange={handleChange}
-              title="Youtube Link 3"
-              id="youtubeLink3"
-              placeholder="Youtube Link 3"
-            />
+          <InputField
+            name={"videoUrl2"}
+            value={formData?.videoUrl2}
+            handleChange={handleChange}
+            title="Youtube Link 3"
+            id="youtubeLink3"
+            placeholder="Youtube Link 3"
+          />
           {/* </a> */}
         </p>
         <p>
           {/* <a href={data?.videoUrl3} target="_blank"> */}
-            <InputField
-              name={"videoUrl3"}
-              value={formData?.videoUrl3}
-              handleChange={handleChange}
-              title="Youtube Link 3"
-              id="youtubeLink3"
-              placeholder="Youtube Link 3"
-            />
+          <InputField
+            name={"videoUrl3"}
+            value={formData?.videoUrl3}
+            handleChange={handleChange}
+            title="Youtube Link 3"
+            id="youtubeLink3"
+            placeholder="Youtube Link 3"
+          />
           {/* </a> */}
         </p>
         <p>
           {/* <a href={data?.videoUrl4} target="_blank"> */}
-            <InputField
-              name={"videoUrl4"}
-              value={formData?.videoUrl4}
-              handleChange={handleChange}
-              title="Youtube Link 5"
-              id="youtubeLink5"
-              placeholder="Youtube Link 5"
-            />
+          <InputField
+            name={"videoUrl4"}
+            value={formData?.videoUrl4}
+            handleChange={handleChange}
+            title="Youtube Link 5"
+            id="youtubeLink5"
+            placeholder="Youtube Link 5"
+          />
           {/* </a> */}
         </p>
       </Wrapper>

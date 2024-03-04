@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { RadioButton } from "primereact/radiobutton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 
@@ -57,7 +57,7 @@ const RadioStyles = styled.div`
   }
 `;
 
-const VisibilityStatus = ({ Fid, visi, setFetchedValue }) => {
+const VisibilityStatus = ({ Fid, visi, getCollegeDetails }) => {
   const [visibility, setVisibility] = useState(visi);
 
   const handleFormSubmit = async (newVisibility) => {
@@ -68,13 +68,12 @@ const VisibilityStatus = ({ Fid, visi, setFetchedValue }) => {
         staffid: Fid,
         isOpen: newVisibility,
       };
-      console.log("formData", formData);
       const { data } = await axios.patch(`/v2/empstatus`, formData, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
       });
-      setFetchedValue();
+      getCollegeDetails();
       toast.dismiss(loading);
       toast.success("Details updated successfully !!");
     } catch (err) {

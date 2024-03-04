@@ -45,7 +45,6 @@ const InfrastructureBlock = ({ data }) => {
   const [infraChecks, setInfraChecks] = useState([]);
   const [editable, setEditable] = useState(false);
   const [formData, setFormData] = useState(data);
-  console.log("data*****" ,data);
 
   const setFetchedItems = () => {
     var tempArr = [];
@@ -106,7 +105,6 @@ const InfrastructureBlock = ({ data }) => {
       toast.error("Something went wrong, please try again !!");
     }
   };
-  console.log("formData*****" , formData);
 
   return (
     <>

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import React, { useRef, useState } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import { IoIosClose } from "react-icons/io";
 
 const Wrapper = styled.div`
   .gallery-fields {
@@ -64,6 +65,23 @@ const GalleryStyle = styled.div`
       height: 100%;
       width: 100%;
       object-fit: cover;
+    }
+
+    .remove-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      border-radius: 0 0 0 10px;
+      box-shadow: 0 0 10px 5px rgb(0 0 0 / 0.1);
+      background: #fff;
+      button {
+        font-size: 24px;
+        height: 30px;
+        width: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
 
     .image-btn {
@@ -187,6 +205,21 @@ const AcademicBlock = () => {
     ]);
   };
 
+  const handleRemoveItem = async (id, index) => {
+    const loading = toast.loading("Removing Media File...");
+    try {
+      const tempArray = [...academicList];
+      tempArray.splice(index, 1);
+      setAcademicList(tempArray);
+      toast.dismiss(loading);
+      toast.success("Media deleted successfully");
+    } catch (err) {
+      console.log(err);
+      toast.dismiss(loading);
+      toast.error("Failed to delete Media, Please try again !!");
+    }
+  };
+
   return (
     <form
       ref={formRef}
@@ -212,6 +245,17 @@ const AcademicBlock = () => {
                     name={"image"}
                     onChange={(e) => handleChange(e, i)}
                   />
+                </div>
+                <div className="remove-btn">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleRemoveItem(item.academicid, i);
+                    }}
+                  >
+                    <IoIosClose />
+                  </button>
                 </div>
               </div>
               <div className="info-block">

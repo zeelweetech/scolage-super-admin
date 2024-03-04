@@ -69,6 +69,7 @@ const Wrapper = styled.li`
   }
 
   .login-info {
+    position: relative;
     width: 308px;
     border: 1px solid #707070;
     border-radius: 20px;
@@ -85,10 +86,19 @@ const Wrapper = styled.li`
   }
   .password-toggle {
     position: absolute;
-    top: 55%;
-    right: 460px;
+    top: 50%;
+    right: 10px;
     transform: translateY(-50%);
     cursor: pointer;
+    width: 20px; /* Added */
+    height: 20px; /* Added */
+    background-image: url(${eyeHide}); /* Default icon */
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .password-toggle.show {
+    background-image: url(${eyeShow}); /* Icon when password is shown */
   }
 
   .edit-ctas {
@@ -251,21 +261,21 @@ const LoginId = ({ info }) => {
         <p className="text-red-500 text-xs mb-1">{errors?.email}</p>
       )}
 
-      <input
-        className="login-info user-password"
-        type={showPassword ? "text" : "password"}
-        name="password"
-        placeholder="Password"
-        onChange={(e) => handleOnChange(e)}
-      />
-      <img
-        src={showPassword ? eyeShow : eyeHide}
-        alt="Toggle Password"
-        className="password-toggle"
-        onClick={handleTogglePassword}
-      />
+      <div className="login-info">
+        <input
+          className="user-password"
+          type={showPassword ? "text" : "password"}
+          name="password"
+          placeholder="Password"
+          onChange={(e) => handleOnChange(e)}
+        />
+        <div
+          className={`password-toggle ${showPassword ? "show" : ""}`}
+          onClick={handleTogglePassword}
+        />
+      </div>
       {errors?.password && (
-        <p className="text-red-500 text-xs mb-1">{errors?.name}</p>
+        <p className="text-red-500 text-xs mb-1">{errors?.password}</p>
       )}
 
       <select

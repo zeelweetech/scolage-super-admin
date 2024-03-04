@@ -105,9 +105,6 @@ const InfraChecksEdit = ({
   formData,
   handleCheckChange,
 }) => {
-  console.log("formData", formData?.[data.key]);
-  console.log("data", data);
-
   const onChecksChange = (e) => {
     console.log(e);
     let _checkedItems = [...infraChecks];

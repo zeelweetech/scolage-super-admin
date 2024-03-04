@@ -122,8 +122,8 @@ const GalleryStyle = styled.div`
   }
 `;
 
-const SportBlock = ({ data }) => {
-  // console.log(data);
+const SportBlock = ({ data, id }) => {
+  console.log(data);
   const [sportsList, setSportsList] = useState([]);
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -152,7 +152,7 @@ const SportBlock = ({ data }) => {
     e.preventDefault();
     const loading = toast.loading("Adding details...");
     try {
-      const collegeId = localStorage.getItem("collegeProfileId");
+      const collegeId = id ? id : localStorage.getItem("collegeProfileId");
 
       const formData = new FormData();
 

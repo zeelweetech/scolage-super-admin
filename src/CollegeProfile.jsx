@@ -70,7 +70,7 @@ const CollegeProfile = () => {
         {collegeData && <HighlightBlock data={collegeData?.highlight?.[0]} />}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"SPORTS"}>
-        {collegeData && <SportBlock data={collegeData?.sports} />}
+        {collegeData && <SportBlock data={collegeData?.sports} id={id}/>}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"CULTURAL"}>
         {collegeData && <CulturalForm data={collegeData?.cultural} id={id}/>}

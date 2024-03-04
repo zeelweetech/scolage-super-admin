@@ -94,8 +94,7 @@ const Wrapper = styled.li`
   }
 `;
 
-const StaffList = ({ faculty, setFetchedValue }) => {
-  console.log("faculty.isOpen", faculty);
+const StaffList = ({ faculty, getCollegeDetails }) => {
   return (
     <Wrapper>
       {faculty.isOpen === true ? (
@@ -121,7 +120,7 @@ const StaffList = ({ faculty, setFetchedValue }) => {
           <VisibilityStatus
             Fid={faculty.staffid}
             visi={faculty.isOpen}
-            setFetchedValue={setFetchedValue}
+            getCollegeDetails={getCollegeDetails}
           />
         </div>
 
