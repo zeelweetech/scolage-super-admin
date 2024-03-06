@@ -53,7 +53,7 @@ const Wrapper = styled.div`
 
 const StaffInfoBlock = ({ data, id, getCollegeDetails }) => {
   const [staffData, setStaffData] = useState([]);
-
+console.log("data" , data);
   const setFetchedValue = () => {
     setStaffData(data);
   };

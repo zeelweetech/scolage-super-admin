@@ -123,7 +123,7 @@ const GalleryStyle = styled.div`
   }
 `;
 
-const AcademicForm = ({ data, id }) => {
+const AcademicForm = ({ data, id, getCollegeDetails }) => {
   // console.log(data)
   const [academicList, setAcademicList] = useState([
     { image: "", more_info: "", imgPreview: "" },
@@ -211,6 +211,7 @@ const AcademicForm = ({ data, id }) => {
         }
       }
       setEditable(false);
+      getCollegeDetails();
       toast.dismiss(loading);
       toast.success("Details added successfully");
     } catch (err) {

@@ -46,7 +46,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const HighlightBlock = ({ data }) => {
+const HighlightBlock = ({ data, getCollegeDetails }) => {
   const highlightCheckData = [
     {
       id: 1,
@@ -131,6 +131,7 @@ const HighlightBlock = ({ data }) => {
         }
       );
       setEditable(false);
+      getCollegeDetails();
       toast.dismiss(loading);
       toast.success("Details updated successfully !!");
     } catch (err) {

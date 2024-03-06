@@ -61,48 +61,48 @@ const CollegeProfile = () => {
         {collegeData && <LoginId info={collegeData?.college} />}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"COLLEGE DETAILS"}>
-        {collegeData && <ClgDetailsBlock data={collegeData?.college} />}
+        {collegeData && <ClgDetailsBlock data={collegeData?.college} getCollegeDetails={getCollegeDetails}/>}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"INFRASTRUCTURE"}>
-        {collegeData && <InfrastructureBlock data={collegeData?.infra?.[0]} />}
+        {collegeData && <InfrastructureBlock data={collegeData?.infra?.[0]} getCollegeDetails={getCollegeDetails}/>}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"HIGHLIGHTS"}>
-        {collegeData && <HighlightBlock data={collegeData?.highlight?.[0]} />}
+        {collegeData && <HighlightBlock data={collegeData?.highlight?.[0]} getCollegeDetails={getCollegeDetails}/>}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"SPORTS"}>
-        {collegeData && <SportBlock data={collegeData?.sports} id={id}/>}
+        {collegeData && <SportBlock data={collegeData?.sports} id={id} getCollegeDetails={getCollegeDetails}/>}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"CULTURAL"}>
-        {collegeData && <CulturalForm data={collegeData?.cultural} id={id}/>}
+        {collegeData && <CulturalForm data={collegeData?.cultural} id={id} getCollegeDetails={getCollegeDetails}/>}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"ACADEMICS"}>
-        {collegeData && <AcademicForm data={collegeData?.acedemic} id={id}/>}
+        {collegeData && <AcademicForm data={collegeData?.acedemic} id={id} getCollegeDetails={getCollegeDetails}/>}
       </AddClgAccordion>
 
       <AddClgAccordion accTitle={"ALUMNI AND TOPPERS"}>
         {collegeData && (
-          <ToppersInfoBlock data={collegeData?.alumini_and_toppers} id={id}/>
+          <ToppersInfoBlock data={collegeData?.alumini_and_toppers} id={id} getCollegeDetails={getCollegeDetails}/>
         )}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"MANAGEMENT & STAFF"}>
         {collegeData && <StaffInfoBlock data={collegeData?.management_staff} id={id} getCollegeDetails={getCollegeDetails}/>}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"SUBJECTS"}>
-        {collegeData && <SubjectSeats data={collegeData?.subject} id={id}/>}
+        {collegeData && <SubjectSeats data={collegeData?.subject} id={id} getCollegeDetails={getCollegeDetails}/>}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"ELIGIBILITY & TERMS"}>
         {collegeData && (
-          <FeeStructureBlock data={collegeData?.feeStructure?.[0]} id={id}/>
+          <FeeStructureBlock data={collegeData?.feeStructure?.[0]} id={id} getCollegeDetails={getCollegeDetails}/>
         )}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"COLLEGE IMAGES"}>
-        {collegeData && <CollegeImagesView data={collegeData?.clgimage} id={id}/>}
+        {collegeData && <CollegeImagesView data={collegeData?.clgimage} id={id} getCollegeDetails={getCollegeDetails}/>}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"YOUTUBE LINKS"}>
-        {collegeData && <YoutubeView data={collegeData?.videoUrl?.[0]} />}
+        {collegeData && <YoutubeView data={collegeData?.videoUrl?.[0]} getCollegeDetails={getCollegeDetails}/>}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"COLLEGE POLICY & SOCIAL MEDIA"}>
-        <PolicyBlock data={collegeData?.clgpolicySocialMedia[0]} />
+        <PolicyBlock data={collegeData?.clgpolicySocialMedia[0]} getCollegeDetails={getCollegeDetails}/>
       </AddClgAccordion>
     </Layout>
   );

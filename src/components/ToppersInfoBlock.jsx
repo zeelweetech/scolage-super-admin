@@ -121,7 +121,7 @@ const TopperItemStyles = styled.div`
   }
 `;
 
-const ToppersInfoBlock = ({ data, id }) => {
+const ToppersInfoBlock = ({ data, id, getCollegeDetails }) => {
   const [topperInfoList, setTopperInfoList] = useState([
     {
       image: "",
@@ -235,6 +235,7 @@ const ToppersInfoBlock = ({ data, id }) => {
         }
       }
       setEditable(false);
+      getCollegeDetails();
       toast.dismiss(loading);
       toast.success("Details updated successfully");
     } catch (err) {
@@ -459,7 +460,7 @@ const ToppersInfoBlock = ({ data, id }) => {
             onClick={(e) => {
               e.preventDefault();
               setEditable(false);
-              setFetchedValue();
+              // setFetchedValue();
               forceUpdate();
             }}
           >

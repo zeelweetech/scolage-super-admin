@@ -118,7 +118,7 @@ const InputField = ({
   );
 };
 
-const YoutubeView = ({ data }) => {
+const YoutubeView = ({ data, getCollegeDetails }) => {
   const [formData, setFormData] = useState(data);
   const [editable, setEditable] = useState(false);
 
@@ -152,6 +152,7 @@ const YoutubeView = ({ data }) => {
         }
       );
       setEditable(false);
+      getCollegeDetails();
       toast.dismiss(loading);
       toast.success("Details updated successfully !!");
     } catch (err) {

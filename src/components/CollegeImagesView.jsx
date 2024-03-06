@@ -127,7 +127,7 @@ const ImageItemStyle = styled.div`
   }
 `;
 
-const CollegeImagesView = ({ data, id }) => {
+const CollegeImagesView = ({ data, id, getCollegeDetails }) => {
   const [collegeImage, setCollegeImage] = useState([]);
   const [editable, setEditable] = useState(false);
   const [, updateState] = React.useState();
@@ -279,6 +279,7 @@ const CollegeImagesView = ({ data, id }) => {
         }
       }
       setEditable(false);
+      getCollegeDetails();
       toast.dismiss(loading);
       toast.success("Details added successfully");
     } catch (err) {
@@ -420,7 +421,7 @@ const CollegeImagesView = ({ data, id }) => {
             className="cancel-btn-cta"
             onClick={() => {
               setEditable(false);
-              setCollegeImage(data);
+              // setCollegeImage(data);
             }}
           >
             Cancel

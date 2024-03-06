@@ -725,7 +725,7 @@ const TimingStyles = styled.div`
   }
 `;
 
-const ClgDetailsBlock = ({ data }) => {
+const ClgDetailsBlock = ({ data, getCollegeDetails }) => {
   const [formData, setFormData] = useState(data);
   const [phoneType, setPhoneType] = useState("mobile");
   const [phoneType2, setPhoneType2] = useState("mobile");
@@ -849,6 +849,7 @@ const ClgDetailsBlock = ({ data }) => {
         }
       );
       setEditable(false);
+      getCollegeDetails();
       toast.dismiss(loading);
       toast.success("Details updated successfully !!");
     } catch (err) {

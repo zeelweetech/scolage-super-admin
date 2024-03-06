@@ -122,7 +122,7 @@ const GalleryStyle = styled.div`
   }
 `;
 
-const CulturalForm = ({ data, id }) => {
+const CulturalForm = ({ data, id, getCollegeDetails }) => {
   const [culturalList, setCulturalList] = useState([]);
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -207,6 +207,7 @@ const CulturalForm = ({ data, id }) => {
         }
       }
       setEditable(false);
+      getCollegeDetails();
       toast.dismiss(loading);
       toast.success("Details added successfully");
     } catch (err) {

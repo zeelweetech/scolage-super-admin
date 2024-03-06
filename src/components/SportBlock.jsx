@@ -122,7 +122,7 @@ const GalleryStyle = styled.div`
   }
 `;
 
-const SportBlock = ({ data, id }) => {
+const SportBlock = ({ data, id, getCollegeDetails }) => {
   console.log(data);
   const [sportsList, setSportsList] = useState([]);
   const [, updateState] = React.useState();
@@ -206,6 +206,7 @@ const SportBlock = ({ data, id }) => {
         setFetchedValue(newList.data);
       }
       setEditable(false);
+      getCollegeDetails();
       toast.dismiss(loading);
       toast.success("Details updated successfully");
     } catch (err) {

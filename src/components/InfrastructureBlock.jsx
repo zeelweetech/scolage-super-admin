@@ -40,7 +40,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const InfrastructureBlock = ({ data }) => {
+const InfrastructureBlock = ({ data, getCollegeDetails }) => {
   // console.log(info)
   const [infraChecks, setInfraChecks] = useState([]);
   const [editable, setEditable] = useState(false);
@@ -97,6 +97,7 @@ const InfrastructureBlock = ({ data }) => {
         }
       );
       setEditable(false);
+      getCollegeDetails();
       toast.dismiss(loading);
       toast.success("Details updated successfully !!");
     } catch (err) {

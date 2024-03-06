@@ -97,7 +97,7 @@ const Wrapper = styled.li`
 const StaffList = ({ faculty, getCollegeDetails }) => {
   return (
     <Wrapper>
-      {faculty.isOpen === true ? (
+      {/* {faculty.isOpen === true ? ( */}
         <div className="faculty-info">
           <div className="faculty-in Fname">
             <p>{faculty.name}</p>
@@ -111,9 +111,9 @@ const StaffList = ({ faculty, getCollegeDetails }) => {
             </div>
           </div>
         </div>
-      ) : (
+      {/* ) : (
         ""
-      )}
+      )} */}
 
       <div className="Fstatus">
         <div className="visibility-status">

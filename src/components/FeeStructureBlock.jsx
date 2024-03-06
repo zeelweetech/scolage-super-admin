@@ -41,7 +41,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const FeeStructureBlock = ({ data, id }) => {
+const FeeStructureBlock = ({ data, id, getCollegeDetails }) => {
   // console.log(data);
   const [note, setNote] = useState(data);
   const [editable, setEditable] = useState(false);
@@ -86,7 +86,7 @@ const FeeStructureBlock = ({ data, id }) => {
       );
 
       setEditable(false);
-
+      getCollegeDetails();
       toast.dismiss(loading);
       toast.success("Details saved successfully.");
     } catch (err) {
