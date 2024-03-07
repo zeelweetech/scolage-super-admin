@@ -98,6 +98,7 @@ const InfrastructureBlock = ({ data, getCollegeDetails }) => {
       );
       setEditable(false);
       getCollegeDetails();
+      window.location.reload();
       toast.dismiss(loading);
       toast.success("Details updated successfully !!");
     } catch (err) {

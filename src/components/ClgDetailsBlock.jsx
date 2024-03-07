@@ -848,10 +848,11 @@ const ClgDetailsBlock = ({ data, getCollegeDetails }) => {
           },
         }
       );
-      setEditable(false);
       getCollegeDetails();
       toast.dismiss(loading);
+      window.location.reload();
       toast.success("Details updated successfully !!");
+      setEditable(false);
     } catch (err) {
       console.log(err);
       toast.dismiss(loading);

@@ -87,6 +87,7 @@ const FeeStructureBlock = ({ data, id, getCollegeDetails }) => {
 
       setEditable(false);
       getCollegeDetails();
+      window.location.reload();
       toast.dismiss(loading);
       toast.success("Details saved successfully.");
     } catch (err) {

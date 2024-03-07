@@ -74,6 +74,7 @@ const VisibilityStatus = ({ Fid, visi, getCollegeDetails }) => {
         },
       });
       getCollegeDetails();
+      window.location.reload();
       toast.dismiss(loading);
       toast.success("Details updated successfully !!");
     } catch (err) {

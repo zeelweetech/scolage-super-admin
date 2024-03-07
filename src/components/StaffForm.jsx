@@ -381,6 +381,7 @@ const StaffForm = ({ staffData, setStaffData, id, getCollegeDetails }) => {
       );
       setStaffData([...staffData, data.data]);
       getCollegeDetails();
+      window.location.reload();
       toast.dismiss(loading);
       toast.success("Details added successfully");
       if (id) {
