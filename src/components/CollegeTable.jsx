@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoadingBar } from "../context/LoadingBarContext";
 import toast from "react-hot-toast";
+import { Calendar } from "primereact/calendar";
 
 const DatatableStyles = styled.div`
   padding: 0 26px 26px;
@@ -264,18 +265,30 @@ const CollegeTable = () => {
   const { setProgressBar } = useLoadingBar();
   const [record, setRecord] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
-  console.log("record", record);
+  const [date, setDate] = useState(null);
+  const [formatedDate, setFormatedDate] = useState();
   const navigate = useNavigate();
 
   const getCollegeList = async () => {
     setProgressBar(0);
     try {
       setProgressBar(40);
-      const { data } = await axios.get("/v2/collegelist/get", {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      });
+      const { data } = await axios.get(
+        date
+          ? `/v2/collegelist/get?filter=${formatedDate}`
+          : `/v2/collegelist/get`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      console.log(
+        "data",
+        data?.college?.filter((item) => {
+          return item?.createdAt;
+        })
+      );
       setProgressBar(50);
       setRecord(data.college);
       setProgressBar(100);
@@ -285,21 +298,14 @@ const CollegeTable = () => {
       console.log(err);
     }
   };
-
+  console.log("formatedDate", formatedDate);
   useEffect(() => {
     getCollegeList();
-  }, []);
+  }, [formatedDate ? formatedDate : ""]);
 
   const ratingBodyTemplate = (record) => {
     console.log("record", record);
-    return (
-      <Rating
-        value={record?.review}
-        stars={5}
-        readOnly
-        cancel={false}
-      />
-    );
+    return <Rating value={record?.review} stars={5} readOnly cancel={false} />;
   };
   const paymentStatus = (record) => {
     return (
@@ -364,6 +370,29 @@ const CollegeTable = () => {
     setFilters(_filters);
   };
 
+  const onGlobalMonthDateChange = (event) => {
+    const dateString = event.target.value;
+    const dateObj = new Date(dateString);
+    const monthIndex = dateObj.getMonth();
+    const year = dateObj.getFullYear();
+    const monthNames = [
+      "january",
+      "february",
+      "march",
+      "april",
+      "may",
+      "june",
+      "july",
+      "august",
+      "september",
+      "october",
+      "november",
+      "december",
+    ];
+    const formattedDate = `${monthNames[monthIndex]}-${year}`;
+    setFormatedDate(formattedDate);
+  };
+
   const exportExcel = () => {
     import("xlsx").then((xlsx) => {
       const worksheet = xlsx.utils.json_to_sheet(record);
@@ -423,6 +452,20 @@ const CollegeTable = () => {
             placeholder="Search"
           />
         </SearchboxStyles>
+        <div className="flex-auto">
+          <Calendar
+            value={date}
+            onChange={(e) => {
+              console.log(e.target.value, "ooo");
+              onGlobalMonthDateChange(e);
+              setDate(e.target.value);
+              disable;
+            }}
+            placeholder="Select month"
+            view="month"
+            dateFormat="MM yy"
+          />
+        </div>
 
         <div className="Theader-right">
           <button>

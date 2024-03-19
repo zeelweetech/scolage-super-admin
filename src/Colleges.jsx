@@ -93,11 +93,11 @@ const Colleges = () => {
                   <div className="header-title">
                      <h2>College Lists</h2>
                   </div>
-                  <div className="filter-tabs">
+                  {/* <div className="filter-tabs">
                      <button className="active">Last Month</button>
                      <button>Feb 2022</button>
                      <button>Mar 2022</button>
-                  </div>
+                  </div> */}
                </div>
 
                <div className="college-list-table">

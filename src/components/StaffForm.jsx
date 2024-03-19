@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import AddIcon from "../Icons/AddIcon";
 import { Dropdown } from "primereact/dropdown";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -146,14 +146,19 @@ const InputFieldStyles = styled.div`
   }
 `;
 
-const InputField = ({ title, name, placeholder }) => {
+const InputField = ({ title, name, placeholder, value }) => {
   return (
     <InputFieldStyles>
       <div className="label">
         <p>{title}</p>
       </div>
       <div className="field">
-        <input type="text" name={name} placeholder={placeholder} />
+        <input
+          type="text"
+          name={name}
+          placeholder={placeholder}
+          defaultValue={value || ""}
+        />
       </div>
     </InputFieldStyles>
   );
@@ -275,7 +280,7 @@ const AboutFieldStyles = styled.div`
   }
 `;
 
-const AboutField = () => {
+const AboutField = ({ editData }) => {
   return (
     <AboutFieldStyles>
       <div className="label">
@@ -283,7 +288,10 @@ const AboutField = () => {
       </div>
       <div className="field">
         <div className="about-textarea">
-          <textarea name="about"></textarea>
+          <textarea
+            name="about"
+            value={editData?.staffid ? editData.about : ""}
+          ></textarea>
         </div>
       </div>
     </AboutFieldStyles>
@@ -291,6 +299,7 @@ const AboutField = () => {
 };
 
 const expOptionTemp = (option) => {
+  console.log("option", option);
   return (
     <p>
       {option} {option == 1 ? "year" : "years"}
@@ -299,6 +308,7 @@ const expOptionTemp = (option) => {
 };
 
 const valueTemplate = (option) => {
+  console.log("option***********", option);
   if (option) {
     return (
       <p>
@@ -307,7 +317,13 @@ const valueTemplate = (option) => {
     );
   }
 };
-const StaffForm = ({ staffData, setStaffData, id, getCollegeDetails }) => {
+const StaffForm = ({
+  staffData,
+  setStaffData,
+  id,
+  getCollegeDetails,
+  editData,
+}) => {
   const [totalExp, setTotalExp] = useState(10);
   const [currentExp, setCurrentExp] = useState(2);
   const [avatar, setAvatar] = useState();
@@ -316,7 +332,20 @@ const StaffForm = ({ staffData, setStaffData, id, getCollegeDetails }) => {
   const inputRef = useRef(null);
   const formRef = useRef(null);
 
-  console.log(staffData, "555555555555");
+  console.log("experience", editData?.experience?.[0]?.total);
+  console.log("totalExp", totalExp);
+  console.log(editData, "555555555555");
+  console.log("&&&&&&", staffData);
+
+  useEffect(() => {
+    // If editData is provided, populate the form fields
+    if (editData) {
+      setTotalExp(editData?.experience?.[0]?.total);
+      setCurrentExp(editData?.experience?.[0]?.current);
+      setAvatarPreview(editData.url);
+      // Populate other form fields accordingly
+    }
+  }, [editData]);
 
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -434,11 +463,13 @@ const StaffForm = ({ staffData, setStaffData, id, getCollegeDetails }) => {
           title={"name"}
           name="name"
           placeholder="Ravindar Narayana"
+          value={editData?.staffid ? editData.name : ""}
         />
         <InputField
           title={"Qualification"}
           name="qualification"
           placeholder="PHD in Science"
+          value={editData?.staffid ? editData.qualification : ""}
         />
         <ExperienceField
           totalExp={totalExp}
@@ -453,8 +484,9 @@ const StaffForm = ({ staffData, setStaffData, id, getCollegeDetails }) => {
           title={"Designation"}
           name="designation"
           placeholder="Science Teacher"
+          value={editData?.staffid ? editData.designation : ""}
         />
-        <AboutField />
+        <AboutField editData={editData} />
 
         <div className="form-ctas">
           {/* <button>Add</button> */}

@@ -172,13 +172,13 @@ const SubjectSeats = ({ data, id, getCollegeDetails }) => {
   const [editable, setEditable] = useState(false);
   const [newSubjectSeat, setNewSubjectSeat] = useState([]);
   const systemType = [
-    { subjectname: "BCA" },
-    { subjectname: "MBA" },
-    { subjectname: "BBA" },
-    { subjectname: "MCA" },
-    { subjectname: "Computer Eng" },
-    { subjectname: "IT Eng" },
-    { subjectname: "Pharmacy" },
+    { subjectname: "MPC" },
+    { subjectname: "MEC" },
+    { subjectname: "BPC" },
+    { subjectname: "CEC" },
+    { subjectname: "HEC" },
+    { subjectname: "ECH" },
+    { subjectname: "ECG" },
   ];
 
   const setFetchedData = (data) => {

@@ -171,13 +171,13 @@ const SubjectBlock = () => {
   const { setProgressBar } = useLoadingBar();
   const collegeid = localStorage.getItem("collegeId");
   const systemType = [
-    { subjectname: "BCA" },
-    { subjectname: "MBA" },
-    { subjectname: "BBA" },
-    { subjectname: "MCA" },
-    { subjectname: "Computer Eng" },
-    { subjectname: "IT Eng" },
-    { subjectname: "Pharmacy" },
+    { subjectname: "MPC" },
+    { subjectname: "MEC" },
+    { subjectname: "BPC" },
+    { subjectname: "CEC" },
+    { subjectname: "HEC" },
+    { subjectname: "ECH" },
+    { subjectname: "ECG" },
   ];
   const [subjectSeat, setSubjectSeat] = useState([
     {

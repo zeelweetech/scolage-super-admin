@@ -53,10 +53,20 @@ const Wrapper = styled.div`
 
 const StaffInfoBlock = ({ data, id, getCollegeDetails }) => {
   const [staffData, setStaffData] = useState([]);
-console.log("data" , data);
+  const [selectedId, setSelectedId] = useState();
+  const [editData, setEditData] = useState();
+  console.log("data", data);
+
   const setFetchedValue = () => {
     setStaffData(data);
   };
+
+  useEffect(() => {
+    const selectedData = data?.filter((item) => {
+      return item?.staffid === selectedId;
+    })?.[0];
+    setEditData(selectedData);
+  }, [editData === undefined ? editData : "", selectedId]);
 
   useEffect(() => {
     setFetchedValue();
@@ -99,6 +109,7 @@ console.log("data" , data);
               faculty={faculty}
               key={index}
               getCollegeDetails={getCollegeDetails}
+              setSelectedId={setSelectedId}
             />
           ))}
         </ul>
@@ -109,6 +120,7 @@ console.log("data" , data);
           setStaffData={setStaffData}
           id={id}
           getCollegeDetails={getCollegeDetails}
+          editData={editData}
         />
       </div>
     </Wrapper>
