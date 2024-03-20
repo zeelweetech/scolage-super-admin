@@ -55,7 +55,6 @@ const StaffInfoBlock = ({ data, id, getCollegeDetails }) => {
   const [staffData, setStaffData] = useState([]);
   const [selectedId, setSelectedId] = useState();
   const [editData, setEditData] = useState();
-  console.log("data", data);
 
   const setFetchedValue = () => {
     setStaffData(data);
@@ -121,6 +120,8 @@ const StaffInfoBlock = ({ data, id, getCollegeDetails }) => {
           id={id}
           getCollegeDetails={getCollegeDetails}
           editData={editData}
+          setEditData={setEditData}
+          setSelectedId={setSelectedId}
         />
       </div>
     </Wrapper>

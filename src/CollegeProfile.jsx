@@ -23,27 +23,35 @@ import CulturalBlock from "./components/CulturalBlock";
 import AcademicBlock from "./components/AcademicBlock";
 import CulturalForm from "./components/CulturalForm";
 import AcademicForm from "./components/AcademicForm";
+import { useLoadingBar } from "./context/LoadingBarContext";
 
 const CollegeProfile = () => {
   const [collegeData, setCollegeData] = useState(null);
   const navigate = useNavigate();
+  const { setProgressBar } = useLoadingBar();
 
   let { id } = useParams();
 
   const getCollegeDetails = async () => {
+    setProgressBar(0);
     try {
+      setProgressBar(40);
       const { data } = await axios.post(`/v2/singleclglist/get/${id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token"),
         },
       });
+      setProgressBar(50);
       if (data.college.length === 0) {
         toast.error("Invalid college ID");
         navigate("/colleges");
+        setProgressBar(0);
       }
       setCollegeData(data);
+      setProgressBar(100);
     } catch (err) {
+      setProgressBar(0);
       console.log(err);
       toast("Something went wrong, please try again");
     }
@@ -61,48 +69,115 @@ const CollegeProfile = () => {
         {collegeData && <LoginId info={collegeData?.college} />}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"COLLEGE DETAILS"}>
-        {collegeData && <ClgDetailsBlock data={collegeData?.college} getCollegeDetails={getCollegeDetails}/>}
+        {collegeData && (
+          <ClgDetailsBlock
+            data={collegeData?.college}
+            getCollegeDetails={getCollegeDetails}
+          />
+        )}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"INFRASTRUCTURE"}>
-        {collegeData && <InfrastructureBlock data={collegeData?.infra?.[0]} getCollegeDetails={getCollegeDetails}/>}
+        {collegeData && (
+          <InfrastructureBlock
+            data={collegeData?.infra?.[0]}
+            getCollegeDetails={getCollegeDetails}
+          />
+        )}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"HIGHLIGHTS"}>
-        {collegeData && <HighlightBlock data={collegeData?.highlight?.[0]} getCollegeDetails={getCollegeDetails}/>}
+        {collegeData && (
+          <HighlightBlock
+            data={collegeData?.highlight?.[0]}
+            getCollegeDetails={getCollegeDetails}
+          />
+        )}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"SPORTS"}>
-        {collegeData && <SportBlock data={collegeData?.sports} id={id} getCollegeDetails={getCollegeDetails}/>}
+        {collegeData && (
+          <SportBlock
+            data={collegeData?.sports}
+            id={id}
+            getCollegeDetails={getCollegeDetails}
+          />
+        )}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"CULTURAL"}>
-        {collegeData && <CulturalForm data={collegeData?.cultural} id={id} getCollegeDetails={getCollegeDetails}/>}
+        {collegeData && (
+          <CulturalForm
+            data={collegeData?.cultural}
+            id={id}
+            getCollegeDetails={getCollegeDetails}
+          />
+        )}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"ACADEMICS"}>
-        {collegeData && <AcademicForm data={collegeData?.acedemic} id={id} getCollegeDetails={getCollegeDetails}/>}
+        {collegeData && (
+          <AcademicForm
+            data={collegeData?.acedemic}
+            id={id}
+            getCollegeDetails={getCollegeDetails}
+          />
+        )}
       </AddClgAccordion>
 
       <AddClgAccordion accTitle={"ALUMNI AND TOPPERS"}>
         {collegeData && (
-          <ToppersInfoBlock data={collegeData?.alumini_and_toppers} id={id} getCollegeDetails={getCollegeDetails}/>
+          <ToppersInfoBlock
+            data={collegeData?.alumini_and_toppers}
+            id={id}
+            getCollegeDetails={getCollegeDetails}
+          />
         )}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"MANAGEMENT & STAFF"}>
-        {collegeData && <StaffInfoBlock data={collegeData?.management_staff} id={id} getCollegeDetails={getCollegeDetails}/>}
+        {collegeData && (
+          <StaffInfoBlock
+            data={collegeData?.management_staff}
+            id={id}
+            getCollegeDetails={getCollegeDetails}
+          />
+        )}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"SUBJECTS"}>
-        {collegeData && <SubjectSeats data={collegeData?.subject} id={id} getCollegeDetails={getCollegeDetails}/>}
+        {collegeData && (
+          <SubjectSeats
+            data={collegeData?.subject}
+            id={id}
+            getCollegeDetails={getCollegeDetails}
+          />
+        )}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"ELIGIBILITY & TERMS"}>
         {collegeData && (
-          <FeeStructureBlock data={collegeData?.feeStructure?.[0]} id={id} getCollegeDetails={getCollegeDetails}/>
+          <FeeStructureBlock
+            data={collegeData?.feeStructure?.[0]}
+            id={id}
+            getCollegeDetails={getCollegeDetails}
+          />
         )}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"COLLEGE IMAGES"}>
-        {collegeData && <CollegeImagesView data={collegeData?.clgimage} id={id} getCollegeDetails={getCollegeDetails}/>}
+        {collegeData && (
+          <CollegeImagesView
+            data={collegeData?.clgimage}
+            id={id}
+            getCollegeDetails={getCollegeDetails}
+          />
+        )}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"YOUTUBE LINKS"}>
-        {collegeData && <YoutubeView data={collegeData?.videoUrl?.[0]} getCollegeDetails={getCollegeDetails}/>}
+        {collegeData && (
+          <YoutubeView
+            data={collegeData?.videoUrl?.[0]}
+            getCollegeDetails={getCollegeDetails}
+          />
+        )}
       </AddClgAccordion>
       <AddClgAccordion accTitle={"COLLEGE POLICY & SOCIAL MEDIA"}>
-        <PolicyBlock data={collegeData?.clgpolicySocialMedia[0]} getCollegeDetails={getCollegeDetails}/>
+        <PolicyBlock
+          data={collegeData?.clgpolicySocialMedia[0]}
+          getCollegeDetails={getCollegeDetails}
+        />
       </AddClgAccordion>
     </Layout>
   );

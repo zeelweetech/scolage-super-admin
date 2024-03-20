@@ -53,6 +53,15 @@ const Wrapper = styled.div`
 
 const StaffBlock = () => {
   const [staffData, setStaffData] = useState([]);
+  // const [selectedId, setSelectedId] = useState();
+  // const [editData, setEditData] = useState();
+
+  // useEffect(() => {
+  //   const selectedData = data?.filter((item) => {
+  //     return item?.staffid === selectedId;
+  //   })?.[0];
+  //   setEditData(selectedData);
+  // }, [editData === undefined ? editData : "", selectedId]);
 
   const getStaffData = async () => {
     try {
@@ -81,19 +90,29 @@ const StaffBlock = () => {
   //   useEffect(() => {
   //     getStaffData();
   //   }, []);
-  console.log("vvvvvvv", staffData);
+
   return (
     <Wrapper>
       <div className="staff-list-main">
         <ul>
           {staffData?.length === 0 && <p>No Staff Data</p>}
           {staffData.map((faculty, index) => (
-            <StaffList faculty={faculty} key={index} />
+            <StaffList
+              faculty={faculty}
+              key={index}
+              // setSelectedId={setSelectedId}
+            />
           ))}
         </ul>
       </div>
       <div className="staff-form-main">
-        <StaffForm staffData={staffData} setStaffData={setStaffData} />
+        <StaffForm
+          staffData={staffData}
+          setStaffData={setStaffData}
+          // editData={editData}
+          // setEditData={setEditData}
+          // setSelectedId={setSelectedId}
+        />
       </div>
     </Wrapper>
   );

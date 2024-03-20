@@ -280,7 +280,7 @@ const AboutFieldStyles = styled.div`
   }
 `;
 
-const AboutField = ({ editData }) => {
+const AboutField = ({ value }) => {
   return (
     <AboutFieldStyles>
       <div className="label">
@@ -288,10 +288,7 @@ const AboutField = ({ editData }) => {
       </div>
       <div className="field">
         <div className="about-textarea">
-          <textarea
-            name="about"
-            value={editData?.staffid ? editData.about : ""}
-          ></textarea>
+          <textarea name="about" defaultValue={value || ""}></textarea>
         </div>
       </div>
     </AboutFieldStyles>
@@ -308,7 +305,7 @@ const expOptionTemp = (option) => {
 };
 
 const valueTemplate = (option) => {
-  console.log("option***********", option);
+  console.log("option", option);
   if (option) {
     return (
       <p>
@@ -323,6 +320,8 @@ const StaffForm = ({
   id,
   getCollegeDetails,
   editData,
+  setEditData,
+  setSelectedId,
 }) => {
   const [totalExp, setTotalExp] = useState(10);
   const [currentExp, setCurrentExp] = useState(2);
@@ -332,20 +331,19 @@ const StaffForm = ({
   const inputRef = useRef(null);
   const formRef = useRef(null);
 
-  console.log("experience", editData?.experience?.[0]?.total);
-  console.log("totalExp", totalExp);
-  console.log(editData, "555555555555");
-  console.log("&&&&&&", staffData);
-
   useEffect(() => {
-    // If editData is provided, populate the form fields
-    if (editData) {
-      setTotalExp(editData?.experience?.[0]?.total);
-      setCurrentExp(editData?.experience?.[0]?.current);
+    if (editData?.staffid) {
+      const TotleExp = editData?.experience?.[0]?.total;
+      const CurrentExp = editData?.experience?.[0]?.current;
+      setTotalExp(+TotleExp);
+      setCurrentExp(+CurrentExp);
       setAvatarPreview(editData.url);
-      // Populate other form fields accordingly
+    } else {
+      setAvatarPreview(null);
+      setTotalExp(10);
+      setCurrentExp(2);
     }
-  }, [editData]);
+  }, [editData?.staffid]);
 
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -398,27 +396,54 @@ const StaffForm = ({
       formData.append("designation", e.target.designation.value);
       formData.append("about", e.target.about.value);
 
-      const { data } = await axios.post(
-        "/v2/reg/management_staffdetail",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: localStorage.getItem("token"),
-          },
+      console.log("formData", formData);
+
+      if (editData?.staffid) {
+        const { data } = await axios.patch(
+          `/v2/edit/management_staffdetail/${editData?.staffid}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        );
+        setStaffData([...staffData, data.data]);
+        getCollegeDetails();
+        window.location.reload();
+        toast.dismiss(loading);
+        toast.success("Details added successfully");
+        if (id) {
+          formRef.current.reset();
+          setAvatarPreview(null);
+        } else {
+          // formRef.current.reset();
+          // setAvatarPreview(null);
         }
-      );
-      setStaffData([...staffData, data.data]);
-      getCollegeDetails();
-      window.location.reload();
-      toast.dismiss(loading);
-      toast.success("Details added successfully");
-      if (id) {
-        formRef.current.reset();
-        setAvatarPreview(null);
       } else {
-        // formRef.current.reset();
-        // setAvatarPreview(null);
+        const { data } = await axios.post(
+          "/v2/reg/management_staffdetail",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        );
+        setStaffData([...staffData, data.data]);
+        getCollegeDetails();
+        window.location.reload();
+        toast.dismiss(loading);
+        toast.success("Details added successfully");
+        if (id) {
+          formRef.current.reset();
+          setAvatarPreview(null);
+        } else {
+          // formRef.current.reset();
+          // setAvatarPreview(null);
+        }
       }
     } catch (err) {
       console.log(err);
@@ -486,9 +511,20 @@ const StaffForm = ({
           placeholder="Science Teacher"
           value={editData?.staffid ? editData.designation : ""}
         />
-        <AboutField editData={editData} />
+        <AboutField value={editData?.staffid ? editData.about : ""} />
 
         <div className="form-ctas">
+          {editData?.staffid && (
+            <button
+              className="cancel-btn-cta"
+              onClick={() => {
+                setEditData();
+                setSelectedId();
+              }}
+            >
+              Cancel
+            </button>
+          )}
           {/* <button>Add</button> */}
           <button type="submit">Save</button>
         </div>

@@ -136,20 +136,25 @@ const Wrapper = styled.div`
 const Dashboard = () => {
   const [countData, setCountData] = useState();
   const { setProgressBar } = useLoadingBar();
-  useEffect(() => {
-    setProgressBar(50);
-    setProgressBar(100);
-  }, [setProgressBar]);
+  // useEffect(() => {
+  //   setProgressBar(50);
+  //   setProgressBar(100);
+  // }, [setProgressBar]);
 
   const ChartData = async () => {
+    setProgressBar(0);
     try {
+      setProgressBar(40);
       const { data } = await axios.get("/dashboard/v2/get/counts/superadmin", {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
       });
+      setProgressBar(50);
       setCountData(data);
+      setProgressBar(100);
     } catch (err) {
+      setProgressBar(0);
       console.log("err", err);
     }
   };
@@ -168,7 +173,7 @@ const Dashboard = () => {
             </div>
             <div className="task-team-main">
               <div className="tasks">
-                <TaskBlock countData={countData}/>
+                <TaskBlock countData={countData} />
               </div>
               <div className="team-activity">
                 <TeamActivity />
