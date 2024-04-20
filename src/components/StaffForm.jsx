@@ -318,7 +318,6 @@ const StaffForm = ({
   staffData,
   setStaffData,
   id,
-  getCollegeDetails,
   editData,
   setEditData,
   setSelectedId,
@@ -433,10 +432,9 @@ const StaffForm = ({
           }
         );
         setStaffData([...staffData, data.data]);
-        getCollegeDetails();
         window.location.reload();
         toast.dismiss(loading);
-        toast.success("Details added successfully");
+        toast.success(data?.message);
         if (id) {
           formRef.current.reset();
           setAvatarPreview(null);
@@ -448,7 +446,7 @@ const StaffForm = ({
     } catch (err) {
       console.log(err);
       toast.dismiss(loading);
-      toast.error("something went wrong...");
+      toast.error(err?.response?.data?.error);
     }
   };
 
@@ -487,13 +485,13 @@ const StaffForm = ({
         <InputField
           title={"name"}
           name="name"
-          placeholder="Ravindar Narayana"
+          placeholder="Enter a name"
           value={editData?.staffid ? editData.name : ""}
         />
         <InputField
           title={"Qualification"}
           name="qualification"
-          placeholder="PHD in Science"
+          placeholder="Enter a qualification"
           value={editData?.staffid ? editData.qualification : ""}
         />
         <ExperienceField
@@ -508,7 +506,7 @@ const StaffForm = ({
         <InputField
           title={"Designation"}
           name="designation"
-          placeholder="Science Teacher"
+          placeholder="Enter a designation"
           value={editData?.staffid ? editData.designation : ""}
         />
         <AboutField value={editData?.staffid ? editData.about : ""} />

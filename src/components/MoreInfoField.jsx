@@ -33,7 +33,7 @@ const MoreInfoField = ({ height, name, value, handleChange }) => {
       <Wrapper>
          <label className="more-title">More Info...</label>
          <div className="textarea" style={{ height: height }}>
-            <textarea name={name} value={value} onChange={handleChange} />
+            <textarea name={name} value={value} onChange={handleChange} placeholder="Enter a more information"/>
          </div>
       </Wrapper>
    );

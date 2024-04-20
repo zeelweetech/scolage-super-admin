@@ -89,11 +89,11 @@ const FeeStructureBlock = ({ data, id, getCollegeDetails }) => {
       getCollegeDetails();
       window.location.reload();
       toast.dismiss(loading);
-      toast.success("Details saved successfully.");
+      toast.success(data?.message);
     } catch (err) {
       console.log(err);
       toast.dismiss(loading);
-      toast.error("Something went wrong, Please try again.");
+      toast.error(err?.response?.data?.error);
     }
   };
 
@@ -109,6 +109,7 @@ const FeeStructureBlock = ({ data, id, getCollegeDetails }) => {
               name="eligibility_criteria"
               value={note.eligibility_criteria}
               onChange={handleChange}
+              placeholder="Enter an eligibility criteria"
             ></textarea>
           </div>
         </div>
@@ -121,6 +122,7 @@ const FeeStructureBlock = ({ data, id, getCollegeDetails }) => {
               name="fee_terms"
               value={note.fee_terms}
               onChange={handleChange}
+              placeholder="Enter a fee terms"
             ></textarea>
           </div>
         </div>

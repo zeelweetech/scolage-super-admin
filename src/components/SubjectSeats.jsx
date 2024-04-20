@@ -279,11 +279,11 @@ const SubjectSeats = ({ data, id, getCollegeDetails }) => {
       getCollegeDetails();
       window.location.reload();
       toast.dismiss(loading);
-      toast.success("Details updated successfully");
+      toast.success(data?.message);
     } catch (err) {
       console.log(err.message);
       toast.dismiss(loading);
-      toast.error("Something went wrong!");
+      toast.error(err?.response?.data?.error);
     }
   };
 

@@ -139,11 +139,11 @@ const FeesBlock = () => {
       //   formRef.current.reset();
       // }
       toast.dismiss(loading);
-      toast.success("Details saved successfully.");
+      toast.success(data?.message);
     } catch (err) {
       console.log(err);
       toast.dismiss(loading);
-      toast.error("Something went wrong, Please try again.");
+      toast.error(err?.response?.data?.error);
     }
   };
 
@@ -155,7 +155,10 @@ const FeesBlock = () => {
             <h4>ELIGIBILITY CRITERIA</h4>
           </div>
           <div className="text-field">
-            <textarea name="eligibility_criteria"></textarea>
+            <textarea
+              name="eligibility_criteria"
+              placeholder="Enter an eligibility criteria"
+            ></textarea>
           </div>
         </div>
         <div className="criteria-textarea">
@@ -163,7 +166,10 @@ const FeesBlock = () => {
             <h4>FEE TERMS</h4>
           </div>
           <div className="text-field">
-            <textarea name="fees_terms"></textarea>
+            <textarea
+              name="fees_terms"
+              placeholder="Enter a fees terms"
+            ></textarea>
           </div>
         </div>
         <div className="save-cta-main">

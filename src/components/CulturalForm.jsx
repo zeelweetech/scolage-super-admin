@@ -210,11 +210,11 @@ const CulturalForm = ({ data, id, getCollegeDetails }) => {
       getCollegeDetails();
       window.location.reload();
       toast.dismiss(loading);
-      toast.success("Details added successfully");
+      toast.success(data?.message);
     } catch (err) {
       console.log(err);
       toast.dismiss(loading);
-      toast.error("Details not added, please try again");
+      toast.error(err?.response?.data?.error);
     }
   };
 
@@ -312,7 +312,7 @@ const CulturalForm = ({ data, id, getCollegeDetails }) => {
         setCulturalList(tempArray);
         if (data) {
           toast.dismiss(loading);
-          toast.success("Media deleted successfully");
+          toast.success(data?.message);
         }
       } else {
         toast.dismiss();
@@ -321,7 +321,7 @@ const CulturalForm = ({ data, id, getCollegeDetails }) => {
     } catch (err) {
       console.log(err);
       toast.dismiss(loading);
-      toast.error("Failed to delete Media, Please try again !!");
+      toast.error(err?.response?.data?.error);
     }
   };
 

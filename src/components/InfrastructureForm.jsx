@@ -77,11 +77,11 @@ const InfrastructureForm = () => {
         // setInfraChecks([]);
       }
       toast.dismiss(loading);
-      toast.success("Data added successfully.");
+      toast.success(data?.message);
     } catch (err) {
       console.log(err);
       toast.dismiss(loading);
-      toast.error("Data not added, Please try again.");
+      toast.error(err?.response?.data?.error);
     }
   };
 

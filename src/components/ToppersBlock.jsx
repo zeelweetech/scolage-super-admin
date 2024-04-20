@@ -178,11 +178,11 @@ const ToppersBlock = () => {
       //   ]);
       // }
       toast.dismiss(loading);
-      toast.success("Details added successfully");
+      toast.success(data?.message);
     } catch (err) {
       console.log(err);
       toast.dismiss(loading);
-      toast.error("Something went wrong, please try again.");
+      toast.error(err?.response?.data?.error);
     }
   };
 

@@ -157,11 +157,11 @@ const TandCBlock = () => {
       }
 
       toast.dismiss(loading);
-      toast.success("College created Successfully.");
+      toast.success(data?.message);
     } catch (err) {
       console.log(err);
       toast.dismiss(loading);
-      toast.error("Details not added, please try again");
+      toast.error(err?.response?.data?.error);
     }
   };
 
@@ -174,7 +174,10 @@ const TandCBlock = () => {
               <p>TERMS & CONDITIONS</p>
             </div>
             <div className="field">
-              <textarea name="terms"></textarea>
+              <textarea
+                name="terms"
+                placeholder="Enter a terms and conditions"
+              ></textarea>
             </div>
           </div>
         </div>
@@ -183,22 +186,22 @@ const TandCBlock = () => {
             <InputField
               title={"website"}
               name="website"
-              placeholder={"www.example.com"}
+              placeholder={"Enter a website link"}
             />
             <InputField
               title={"facebook"}
               name={"facebook"}
-              placeholder={"www.facebook.com/example"}
+              placeholder={"Enter a facebook link"}
             />
             <InputField
               title={"youtube"}
               name={"youtube"}
-              placeholder={"www.youtube.com/example"}
+              placeholder={"Enter a youtube link"}
             />
             <InputField
               title={"instagram"}
               name={"instagram"}
-              placeholder={"www.Instagrame.com/college"}
+              placeholder={"Enter a instagram link"}
             />
           </div>
 

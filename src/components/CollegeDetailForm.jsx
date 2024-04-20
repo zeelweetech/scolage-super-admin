@@ -240,11 +240,11 @@ const CityBlock = () => {
     <CityBlockStyles>
       <div className="city-block">
         <label htmlFor="city">City</label>
-        <input type="text" id="city" name="city" placeholder="Hyderabad" />
+        <input type="text" id="city" name="city" placeholder="Enter a city" />
       </div>
       <div className="city-block area-block">
         <label htmlFor="area">Area</label>
-        <input type="text" id="area" name="area" placeholder="Marredpally" />
+        <input type="text" id="area" name="area" placeholder="Enter an area" />
       </div>
     </CityBlockStyles>
   );
@@ -285,7 +285,11 @@ const LocationBlock = () => {
     <LocationStyles>
       <p htmlFor="location">Location</p>
       <div className="map-block">
-        <textarea className="map-link" name="location"></textarea>
+        <textarea
+          className="map-link"
+          name="location"
+          placeholder="Enter a location"
+        ></textarea>
         {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1903.1654212487304!2d78.50663079248724!3d17.44387211831329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9a3a7d6c32f3%3A0x3914ae52024acff4!2sMarredpally%2C%20Teachers%20Colony%2C%20East%20Nehru%20Nagar%2C%20Secunderabad%2C%20Telangana%20500026!5e0!3m2!1sen!2sin!4v1686722486313!5m2!1sen!2sin" width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" /> */}
       </div>
     </LocationStyles>
@@ -852,10 +856,11 @@ const CollegeDetailForm = () => {
           duration: 10000,
         }
       );
+      toast.success(data?.message);
     } catch (err) {
       console.log(err);
       toast.dismiss(loading);
-      toast.error("College Not Added. Please try again !!");
+      toast.error(err?.response?.data?.error);
     }
   };
 
@@ -872,21 +877,21 @@ const CollegeDetailForm = () => {
               title="College Name"
               name={"collegename"}
               id="collegeName"
-              placeholder="Kites Jr. College"
+              placeholder="Enter a college name"
             />
             <InputField
               title="Email"
               type="email"
               name={"email"}
               id="email"
-              placeholder="tony@scolage.com"
+              placeholder="Enter a email"
             />
             <InputField
               title="password"
               type={showPassword ? "text" : "password"}
               name={"password"}
               id="password"
-              placeholder="password"
+              placeholder="Enter a password"
               onTogglePassword={togglePasswordVisibility}
             />
             <PhoneInput
@@ -894,7 +899,7 @@ const CollegeDetailForm = () => {
               title={"Phone"}
               name={"phone"}
               type={"number"}
-              placeholder={"+91 9949 34595"}
+              placeholder={"Enter a phone number"} //+91 9949 34595
               phoneType={phoneType}
               setPhoneType={setPhoneType}
               options={typeOpt}
@@ -921,7 +926,7 @@ const CollegeDetailForm = () => {
               name={"address"}
               type="text"
               id="address"
-              placeholder="Address"
+              placeholder="Enter an address"
             />
 
             <CityBlock />
@@ -995,7 +1000,7 @@ const CollegeDetailForm = () => {
 
                 <div className="class-type">
                   <p>No. of Floors</p>
-                  <input type="number" name="floors" placeholder="12000" />
+                  <input type="number" name="floors" placeholder="5" />
                 </div>
               </div>
             </ClgInfoStyles>
@@ -1041,7 +1046,7 @@ const CollegeDetailForm = () => {
               type="text"
               name={"History_Achievements"}
               id="History_Achievements"
-              placeholder="History and Achievement"
+              placeholder="Enter a history and achievement"
             />
 
             <InputField
@@ -1049,7 +1054,7 @@ const CollegeDetailForm = () => {
               type="text"
               name={"Description"}
               id="Description"
-              placeholder="Description Box"
+              placeholder="Enter a description box"
             />
 
             <MoreInfoField name={"moreInfo"} />

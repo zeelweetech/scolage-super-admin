@@ -134,11 +134,11 @@ const HighlightForm = () => {
       //   setHighlightTexts([]);
       // }
       toast.dismiss(loading);
-      toast.success("Data added successfully.");
+      toast.success(data?.message);
     } catch (err) {
       console.log(err);
       toast.dismiss(loading);
-      toast.error("Data not added, Please try again.");
+      toast.error(err?.response?.data?.error);
     }
   };
 
@@ -164,7 +164,10 @@ const HighlightForm = () => {
             <div className="security-title">
               <h2>SAFETY & SECURITY</h2>
             </div>
-            <textarea name="safetySecurity"></textarea>
+            <textarea
+              name="safetySecurity"
+              placeholder="Enter a safety and security"
+            ></textarea>
             {/* <ol>
                   <li>
                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod incidunt ut laoreet dolore magna aliquam erat</p>

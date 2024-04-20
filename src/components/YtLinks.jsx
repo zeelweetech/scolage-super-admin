@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 const Wrapper = styled.div``;
 
-const handleFormSubmit = (e) => {
+const handleFormSubmit = async (e) => {
   e.preventDefault();
   const loading = toast.loading("Saving...");
   try {
@@ -27,18 +27,17 @@ const handleFormSubmit = (e) => {
       videoUrl4: e.target.yt5.value,
     };
 
-    const { data } = axios.post("/v2/reg/videoUrl", newObj, {
+    const { data } = await axios.post("/v2/reg/videoUrl", newObj, {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
     });
-
     toast.dismiss(loading);
-    toast.success("Details added successfully.");
+    toast.success(data?.message);
   } catch (err) {
     console.log(err);
     toast.dismiss(loading);
-    toast.error("Details not added, please try again !!");
+    toast.error(err?.response?.data?.error);
   }
 };
 
@@ -50,31 +49,31 @@ const YtLinks = () => {
           title={"Youtube Link 1"}
           required
           name="yt1"
-          placeholder={"https://www.youtube.com/"}
+          placeholder={"Enter a youtube link 1"}
         />
         <InputField
           title={"Youtube Link 2"}
           required
           name="yt2"
-          placeholder={"https://www.youtube.com/"}
+          placeholder={"Enter a youtube link 2"}
         />
         <InputField
           title={"Youtube Link 3"}
           required
           name="yt3"
-          placeholder={"https://www.youtube.com/"}
+          placeholder={"Enter a youtube link 3"}
         />
         <InputField
           title={"Youtube Link 4"}
           required
           name="yt4"
-          placeholder={"https://www.youtube.com/"}
+          placeholder={"Enter a youtube link 4"}
         />
         <InputField
           title={"Youtube Link 5"}
           required
           name="yt5"
-          placeholder={"https://www.youtube.com/"}
+          placeholder={"Enter a youtube link 5"}
         />
 
         <div class="save-cta-main">

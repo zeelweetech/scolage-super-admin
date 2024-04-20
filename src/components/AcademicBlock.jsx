@@ -156,17 +156,18 @@ const AcademicBlock = () => {
           Authorization: localStorage.getItem("token"),
         },
       });
+      console.log("data", data);
 
       // if (data) {
       //   formRef.current.reset();
       //   setAcademicList([{ image: "", more_info: "", imgPreview: "" }]);
       // }
       toast.dismiss(loading);
-      toast.success("Details added successfully");
+      toast.success(data?.message);
     } catch (err) {
       console.log(err);
       toast.dismiss(loading);
-      toast.error("Details not added, please try again");
+      toast.error(err?.response?.data?.error);
     }
   };
 
